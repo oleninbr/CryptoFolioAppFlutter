@@ -1,17 +1,31 @@
 import 'package:flutter/material.dart';
 
+/// Central color palette — never use raw Color literals in widgets;
+/// reference these constants or Theme.of(context).colorScheme instead.
 class AppColors {
   AppColors._();
 
-  static const Color primary = Color(0xFF6C63FF);
-  static const Color secondary = Color(0xFF03DAC6);
-  static const Color background = Color(0xFF121212);
-  static const Color surface = Color(0xFF1E1E1E);
-  static const Color error = Color(0xFFCF6679);
-  static const Color onPrimary = Colors.white;
-  static const Color onBackground = Colors.white;
-  static const Color onSurface = Colors.white;
+  /// Seed for ColorScheme.fromSeed (both light and dark themes)
+  static const Color seed = Color(0xFF1565C0);
 
-  static const Color green = Color(0xFF4CAF50);
-  static const Color red = Color(0xFFF44336);
+  // ── Dark theme surfaces ──────────────────────────────────────
+  static const Color darkBackground     = Color(0xFF0D1117);
+  static const Color darkSurface        = Color(0xFF161B22);
+  static const Color darkSurfaceVariant = Color(0xFF21262D);
+
+  // ── Light theme surfaces ─────────────────────────────────────
+  static const Color lightBackground = Color(0xFFF5F7FA);
+  static const Color lightSurface    = Color(0xFFFFFFFF);
+
+  // ── Semantic: portfolio values ───────────────────────────────
+  static const Color positive = Color(0xFF00C853); // gains / price up
+  static const Color negative = Color(0xFFFF3D00); // losses / price down
+
+  // ── Neutral grey scale ───────────────────────────────────────
+  static const Color grey50  = Color(0xFFFAFAFA);
+  static const Color grey100 = Color(0xFFF5F5F5);
+  static const Color grey300 = Color(0xFFE0E0E0);
+  static const Color grey500 = Color(0xFF9E9E9E);
+  static const Color grey700 = Color(0xFF616161);
+  static const Color grey900 = Color(0xFF212121);
 }
