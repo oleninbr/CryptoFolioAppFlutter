@@ -5,8 +5,17 @@ class PortfolioScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Portfolio Screen')),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Portfolio'),
+        automaticallyImplyLeading: false,
+      ),
+      body: Center(
+        child: Text(
+          'Portfolio Screen',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+      ),
     );
   }
 }
