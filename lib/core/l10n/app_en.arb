@@ -1,0 +1,22 @@
+{
+  "@@locale": "en",
+  "appTitle": "CryptoFolio",
+  "homeTitle": "Market",
+  "portfolioTitle": "Portfolio",
+  "profileTitle": "Profile",
+  "loginTitle": "Sign In",
+  "registerTitle": "Create Account",
+  "email": "Email",
+  "password": "Password",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "logout": "Logout",
+  "search": "Search coins...",
+  "price": "Price",
+  "change24h": "24h Change",
+  "marketCap": "Market Cap",
+  "volume": "Volume",
+  "addToPortfolio": "Add to Portfolio",
+  "errorGeneric": "Something went wrong. Please try again.",
+  "loading": "Loading..."
+}

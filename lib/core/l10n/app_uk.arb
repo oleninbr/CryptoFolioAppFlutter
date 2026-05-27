@@ -1,0 +1,22 @@
+{
+  "@@locale": "uk",
+  "appTitle": "CryptoFolio",
+  "homeTitle": "Ринок",
+  "portfolioTitle": "Портфель",
+  "profileTitle": "Профіль",
+  "loginTitle": "Вхід",
+  "registerTitle": "Реєстрація",
+  "email": "Електронна пошта",
+  "password": "Пароль",
+  "signIn": "Увійти",
+  "signUp": "Зареєструватись",
+  "logout": "Вийти",
+  "search": "Пошук монет...",
+  "price": "Ціна",
+  "change24h": "Зміна за 24г",
+  "marketCap": "Ринкова капіталізація",
+  "volume": "Обсяг",
+  "addToPortfolio": "Додати до портфеля",
+  "errorGeneric": "Щось пішло не так. Спробуйте ще раз.",
+  "loading": "Завантаження..."
+}

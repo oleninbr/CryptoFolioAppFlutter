@@ -1,0 +1,5 @@
+package com.cryptofolio.crypto_folio
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()

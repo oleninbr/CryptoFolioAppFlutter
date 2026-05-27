@@ -1,0 +1,22 @@
+{
+  "@@locale": "pl",
+  "appTitle": "CryptoFolio",
+  "homeTitle": "Rynek",
+  "portfolioTitle": "Portfel",
+  "profileTitle": "Profil",
+  "loginTitle": "Zaloguj się",
+  "registerTitle": "Utwórz konto",
+  "email": "Email",
+  "password": "Hasło",
+  "signIn": "Zaloguj się",
+  "signUp": "Zarejestruj się",
+  "logout": "Wyloguj",
+  "search": "Szukaj monet...",
+  "price": "Cena",
+  "change24h": "Zmiana 24h",
+  "marketCap": "Kapitalizacja rynkowa",
+  "volume": "Wolumen",
+  "addToPortfolio": "Dodaj do portfela",
+  "errorGeneric": "Coś poszło nie tak. Spróbuj ponownie.",
+  "loading": "Ładowanie..."
+}
