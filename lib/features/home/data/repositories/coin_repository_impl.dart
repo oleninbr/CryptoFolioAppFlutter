@@ -1,16 +1,9 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/utils/app_exception.dart';
 import '../../domain/models/coin_market_model.dart';
 import '../../domain/repositories/coin_repository.dart';
 import '../datasources/coin_remote_datasource.dart';
 import '../../../coin_detail/domain/models/coin_detail_model.dart';
 import '../../../coin_detail/domain/models/market_chart_model.dart';
-
-/// Riverpod provider that binds [CoinRepository] → [CoinRepositoryImpl].
-/// Swap this binding to inject a mock repository in tests.
-final coinRepositoryProvider = Provider<CoinRepository>((ref) {
-  return CoinRepositoryImpl(ref.watch(coinRemoteDataSourceProvider));
-});
 
 /// Concrete implementation of [CoinRepository].
 /// Delegates to [CoinRemoteDataSource] and re-wraps any unexpected errors

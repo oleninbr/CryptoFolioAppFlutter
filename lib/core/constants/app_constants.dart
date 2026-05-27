@@ -14,4 +14,5 @@ class AppConstants {
   static const String themeKey    = 'app_theme';
   static const String languageKey = 'app_language';
   static const String currencyKey = 'app_currency';
+  static const String coinsKey    = 'coins_cache';
 }
