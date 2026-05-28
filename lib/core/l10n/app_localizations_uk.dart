@@ -141,7 +141,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get toggleTheme => 'Змінити тему';
 
   @override
-  String get comingSoon => 'Функція портфеля скоро з\'явиться!';
+  String get comingSoon => "Функція портфеля скоро з'явиться!";
 
   @override
   String get failedToLoad => 'Не вдалося завантажити деталі монети';
@@ -184,4 +184,71 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get noData => 'Немає даних';
+
+  @override
+  String get confirmPassword => 'Підтвердити пароль';
+
+  @override
+  String get passwordsDoNotMatch => 'Паролі не збігаються';
+
+  @override
+  String get loginSubtitle => 'Увійдіть до свого облікового запису';
+
+  @override
+  String get registerSubtitle => 'Створіть новий обліковий запис';
+
+  @override
+  String get alreadyHaveAccount => 'Вже є обліковий запис? Увійти';
+
+  @override
+  String get dontHaveAccount => 'Немає облікового запису? Зареєструватися';
+
+  @override
+  String get sendResetEmail => 'Надіслати лист для скидання';
+
+  @override
+  String resetEmailSent(String email) =>
+      'Лист для скидання надіслано на $email';
+
+  @override
+  String get emailInvalid => 'Введіть дійсну електронну адресу';
+
+  @override
+  String get passwordTooShort =>
+      'Пароль має містити щонайменше 6 символів';
+
+  @override
+  String get forgotPasswordTitle => 'Забули пароль';
+
+  @override
+  String get forgotPasswordSubtitle =>
+      'Введіть вашу пошту для отримання посилання';
+
+  @override
+  String get showPassword => 'Показати пароль';
+
+  @override
+  String get hidePassword => 'Приховати пароль';
+
+  @override
+  String get takePhoto => 'Зробити фото';
+
+  @override
+  String get chooseFromGallery => 'Вибрати з галереї';
+
+  @override
+  String get uploadingPhoto => 'Завантаження фото...';
+
+  @override
+  String get permissionDenied => 'Доступ заборонено';
+
+  @override
+  String get permissionDeniedMessage =>
+      'Будь ласка, надайте доступ у налаштуваннях пристрою';
+
+  @override
+  String get openSettings => 'Відкрити налаштування';
+
+  @override
+  String get selectPhotoSource => 'Виберіть джерело фото';
 }

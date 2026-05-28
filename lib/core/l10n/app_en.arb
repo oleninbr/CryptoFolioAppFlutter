@@ -58,5 +58,33 @@
   "days14": "14D",
   "days30": "30D",
   "tryDifferentSearch": "Try a different search term",
-  "noData": "No data"
+  "noData": "No data",
+  "confirmPassword": "Confirm Password",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "loginSubtitle": "Sign in to your account",
+  "registerSubtitle": "Create a new account",
+  "alreadyHaveAccount": "Already have an account? Login",
+  "dontHaveAccount": "Don't have an account? Register",
+  "sendResetEmail": "Send Reset Email",
+  "resetEmailSent": "Reset email sent to {email}",
+  "@resetEmailSent": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "emailInvalid": "Enter a valid email address",
+  "passwordTooShort": "Password must be at least 6 characters",
+  "forgotPasswordTitle": "Forgot Password",
+  "forgotPasswordSubtitle": "Enter your email to receive a reset link",
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "takePhoto": "Take a photo",
+  "chooseFromGallery": "Choose from gallery",
+  "uploadingPhoto": "Uploading photo...",
+  "permissionDenied": "Permission denied",
+  "permissionDeniedMessage": "Please allow access in your device settings",
+  "openSettings": "Open Settings",
+  "selectPhotoSource": "Select photo source"
 }

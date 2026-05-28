@@ -58,5 +58,33 @@
   "days14": "14Д",
   "days30": "30Д",
   "tryDifferentSearch": "Спробуйте інший пошуковий запит",
-  "noData": "Немає даних"
+  "noData": "Немає даних",
+  "confirmPassword": "Підтвердити пароль",
+  "passwordsDoNotMatch": "Паролі не збігаються",
+  "loginSubtitle": "Увійдіть до свого облікового запису",
+  "registerSubtitle": "Створіть новий обліковий запис",
+  "alreadyHaveAccount": "Вже є обліковий запис? Увійти",
+  "dontHaveAccount": "Немає облікового запису? Зареєструватися",
+  "sendResetEmail": "Надіслати лист для скидання",
+  "resetEmailSent": "Лист для скидання надіслано на {email}",
+  "@resetEmailSent": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "emailInvalid": "Введіть дійсну електронну адресу",
+  "passwordTooShort": "Пароль має містити щонайменше 6 символів",
+  "forgotPasswordTitle": "Забули пароль",
+  "forgotPasswordSubtitle": "Введіть вашу пошту для отримання посилання",
+  "showPassword": "Показати пароль",
+  "hidePassword": "Приховати пароль",
+  "takePhoto": "Зробити фото",
+  "chooseFromGallery": "Вибрати з галереї",
+  "uploadingPhoto": "Завантаження фото...",
+  "permissionDenied": "Доступ заборонено",
+  "permissionDeniedMessage": "Будь ласка, надайте доступ у налаштуваннях пристрою",
+  "openSettings": "Відкрити налаштування",
+  "selectPhotoSource": "Виберіть джерело фото"
 }

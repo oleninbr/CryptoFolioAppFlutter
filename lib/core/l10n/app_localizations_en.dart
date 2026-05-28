@@ -184,4 +184,68 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noData => 'No data';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get loginSubtitle => 'Sign in to your account';
+
+  @override
+  String get registerSubtitle => 'Create a new account';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account? Login';
+
+  @override
+  String get dontHaveAccount => "Don't have an account? Register";
+
+  @override
+  String get sendResetEmail => 'Send Reset Email';
+
+  @override
+  String resetEmailSent(String email) => 'Reset email sent to $email';
+
+  @override
+  String get emailInvalid => 'Enter a valid email address';
+
+  @override
+  String get passwordTooShort => 'Password must be at least 6 characters';
+
+  @override
+  String get forgotPasswordTitle => 'Forgot Password';
+
+  @override
+  String get forgotPasswordSubtitle => 'Enter your email to receive a reset link';
+
+  @override
+  String get showPassword => 'Show password';
+
+  @override
+  String get hidePassword => 'Hide password';
+
+  @override
+  String get takePhoto => 'Take a photo';
+
+  @override
+  String get chooseFromGallery => 'Choose from gallery';
+
+  @override
+  String get uploadingPhoto => 'Uploading photo...';
+
+  @override
+  String get permissionDenied => 'Permission denied';
+
+  @override
+  String get permissionDeniedMessage =>
+      'Please allow access in your device settings';
+
+  @override
+  String get openSettings => 'Open Settings';
+
+  @override
+  String get selectPhotoSource => 'Select photo source';
 }

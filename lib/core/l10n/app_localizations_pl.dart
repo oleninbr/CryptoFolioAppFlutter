@@ -185,4 +185,70 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get noData => 'Brak danych';
+
+  @override
+  String get confirmPassword => 'Potwierdź hasło';
+
+  @override
+  String get passwordsDoNotMatch => 'Hasła nie są zgodne';
+
+  @override
+  String get loginSubtitle => 'Zaloguj się na swoje konto';
+
+  @override
+  String get registerSubtitle => 'Utwórz nowe konto';
+
+  @override
+  String get alreadyHaveAccount => 'Masz już konto? Zaloguj się';
+
+  @override
+  String get dontHaveAccount => 'Nie masz konta? Zarejestruj się';
+
+  @override
+  String get sendResetEmail => 'Wyślij email resetujący';
+
+  @override
+  String resetEmailSent(String email) =>
+      'Email resetujący wysłany na $email';
+
+  @override
+  String get emailInvalid => 'Podaj prawidłowy adres email';
+
+  @override
+  String get passwordTooShort => 'Hasło musi mieć co najmniej 6 znaków';
+
+  @override
+  String get forgotPasswordTitle => 'Zapomniałeś hasła';
+
+  @override
+  String get forgotPasswordSubtitle =>
+      'Podaj email, aby otrzymać link resetujący';
+
+  @override
+  String get showPassword => 'Pokaż hasło';
+
+  @override
+  String get hidePassword => 'Ukryj hasło';
+
+  @override
+  String get takePhoto => 'Zrób zdjęcie';
+
+  @override
+  String get chooseFromGallery => 'Wybierz z galerii';
+
+  @override
+  String get uploadingPhoto => 'Przesyłanie zdjęcia...';
+
+  @override
+  String get permissionDenied => 'Odmowa dostępu';
+
+  @override
+  String get permissionDeniedMessage =>
+      'Proszę zezwolić na dostęp w ustawieniach urządzenia';
+
+  @override
+  String get openSettings => 'Otwórz ustawienia';
+
+  @override
+  String get selectPhotoSource => 'Wybierz źródło zdjęcia';
 }
