@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/providers/theme_mode_provider.dart';
 import '../../../../core/utils/app_exception.dart';
+import '../../../profile/presentation/providers/theme_provider.dart';
 import '../../domain/models/coin_market_model.dart';
 import '../providers/coins_provider.dart';
 import '../providers/selected_currency_provider.dart';
@@ -50,10 +50,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final coinsAsync  = ref.watch(sortedFilteredCoinsProvider);
-    final currency    = ref.watch(selectedCurrencyProvider);
-    final sortOption  = ref.watch(sortOptionProvider);
-    final themeMode   = ref.watch(themeModeProvider);
+    final coinsAsync = ref.watch(sortedFilteredCoinsProvider);
+    final currency   = ref.watch(selectedCurrencyProvider);
+    final sortOption = ref.watch(sortOptionProvider);
+    final isOffline  = ref.watch(isOfflineModeProvider);
+
+    // valueOrNull == null only during the first frame while prefs load.
+    final themeMode  =
+        ref.watch(themeNotifierProvider).valueOrNull ?? ThemeMode.system;
 
     return Scaffold(
       appBar: AppBar(
@@ -75,17 +79,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   : Icons.dark_mode_rounded,
             ),
             tooltip: 'Toggle theme',
-            onPressed: () {
-              ref.read(themeModeProvider.notifier).state =
-                  themeMode == ThemeMode.dark
-                      ? ThemeMode.light
-                      : ThemeMode.dark;
-            },
+            onPressed: () =>
+                ref.read(themeNotifierProvider.notifier).toggleTheme(),
           ),
         ],
       ),
       body: Column(
         children: [
+          // ── Offline banner ─────────────────────────────────
+          if (isOffline) const _OfflineBanner(),
+
           // ── Search field ───────────────────────────────────
           _CoinSearchField(
             controller: _searchController,
@@ -115,15 +118,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     AsyncValue<List<CoinMarketModel>> coinsAsync,
     String currency,
   ) {
-    // skipLoadingOnRefresh (default true): when the notifier sets
-    // AsyncLoading.copyWithPrevious(), when() keeps calling data()
-    // with the old list — so the RefreshIndicator spinner appears
-    // instead of the shimmer, avoiding a layout flash.
     return coinsAsync.when(
       loading: () => const ShimmerCoinList(key: ValueKey('shimmer')),
       error: (err, _) => _ErrorView(
         key: const ValueKey('error'),
-        message: err is AppException ? err.message : 'Something went wrong.',
+        message:
+            err is AppException ? err.message : 'Something went wrong.',
         onRetry: () => ref.read(coinsProvider.notifier).refresh(),
       ),
       data: (coins) {
@@ -137,9 +137,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             keyboardDismissBehavior:
                 ScrollViewKeyboardDismissBehavior.onDrag,
             itemCount: coins.length,
-            itemBuilder: (_, index) => CoinListTile(
-              coin: coins[index],
-              currency: currency,
+            itemBuilder: (_, index) => _FadeInItem(
+              // Stable key keeps the animation state alive while the user
+              // scrolls; the widget re-animates only when data is replaced.
+              key: ValueKey(coins[index].id),
+              index: index,
+              child: CoinListTile(
+                coin: coins[index],
+                currency: currency,
+              ),
             ),
           ),
         );
@@ -149,8 +155,89 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 }
 
 // ════════════════════════════════════════════════════════════════
+// Fade-in wrapper  (implicit-style: AnimationController + FadeTransition)
+// ════════════════════════════════════════════════════════════════
+
+/// Fades each list item in with a staggered delay based on its [index].
+/// Animation type: implicit — opacity transition driven by an
+/// [AnimationController] that fires once on item appearance.
+class _FadeInItem extends StatefulWidget {
+  const _FadeInItem({
+    super.key,
+    required this.index,
+    required this.child,
+  });
+
+  final int index;
+  final Widget child;
+
+  @override
+  State<_FadeInItem> createState() => _FadeInItemState();
+}
+
+class _FadeInItemState extends State<_FadeInItem>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 300),
+  );
+  late final Animation<double> _opacity = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.easeOut,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    // Cap delay at 300 ms so items below the fold don't wait too long.
+    final delayMs = (widget.index * 50).clamp(0, 300);
+    Future.delayed(Duration(milliseconds: delayMs), () {
+      if (mounted) _controller.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      FadeTransition(opacity: _opacity, child: widget.child);
+}
+
+// ════════════════════════════════════════════════════════════════
 // Private widgets
 // ════════════════════════════════════════════════════════════════
+
+// ── Offline banner ────────────────────────────────────────────────
+
+class _OfflineBanner extends StatelessWidget {
+  const _OfflineBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+      color: cs.errorContainer,
+      child: Row(
+        children: [
+          Icon(Icons.wifi_off_rounded, size: 14, color: cs.onErrorContainer),
+          const SizedBox(width: 8),
+          Text(
+            'Offline mode — showing cached data',
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: cs.onErrorContainer,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 // ── Search field ─────────────────────────────────────────────────
 

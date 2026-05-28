@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/currency_formatter.dart';
 import '../../domain/models/coin_market_model.dart';
+import 'animated_price_widget.dart';
 
 /// One row in the coin market list.
 ///
@@ -98,8 +99,10 @@ class CoinListTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  CurrencyFormatter.formatPrice(coin.currentPrice, currency),
+                // Explicit animation: rolls number + color flash on change.
+                AnimatedPriceWidget(
+                  price: coin.currentPrice,
+                  currency: currency,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),

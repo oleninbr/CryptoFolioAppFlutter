@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/app_exception.dart';
+import '../../data/datasources/coin_local_datasource.dart';
 import '../../data/repositories/coin_repository_provider.dart';
 import '../../domain/models/coin_market_model.dart';
 import 'selected_currency_provider.dart';
@@ -21,11 +18,19 @@ enum SortOption {
 }
 
 // ══════════════════════════════════════════════════════════════
+// Offline-mode flag
+// ══════════════════════════════════════════════════════════════
+
+/// `true` while the app is showing cached data because the network
+/// is unavailable.  Observed by [HomeScreen] to show a banner.
+final isOfflineModeProvider = StateProvider<bool>((ref) => false);
+
+// ══════════════════════════════════════════════════════════════
 // 1. coinsProvider  — AsyncNotifier
 // ══════════════════════════════════════════════════════════════
 
-/// The primary coins state.
-/// Watches [selectedCurrencyProvider]: a currency change triggers a new fetch.
+/// Primary coins state.
+/// A currency change (via [selectedCurrencyProvider]) triggers a rebuild.
 final coinsProvider =
     AsyncNotifierProvider<CoinsNotifier, List<CoinMarketModel>>(
   CoinsNotifier.new,
@@ -36,63 +41,73 @@ class CoinsNotifier extends AsyncNotifier<List<CoinMarketModel>> {
 
   @override
   Future<List<CoinMarketModel>> build() async {
-    // Reactive: re-runs automatically whenever the currency changes.
     final currency = ref.watch(selectedCurrencyProvider);
-    return _fetchAndCache(currency);
+
+    // Clear any stale offline flag at the start of each build.
+    Future.microtask(
+      () => ref.read(isOfflineModeProvider.notifier).state = false,
+    );
+
+    final local = ref.read(coinLocalDataSourceProvider);
+    final cached = await local.loadCoinsFromCache();
+    final expired = await local.isCacheExpired();
+
+    if (cached != null && cached.isNotEmpty && !expired) {
+      // Cache is fresh — serve immediately and refresh in the background.
+      _backgroundRefresh(currency);
+      return cached;
+    }
+
+    // Cache absent or stale — must hit the network.
+    return _fetchFromNetwork(currency);
   }
 
   // ── Public actions ──────────────────────────────────────────
 
-  /// Re-fetches coins from the network, keeping the previous list
-  /// visible during the load (no blank-screen flicker).
+  /// Bypasses the cache and forces a network fetch.
+  /// Previous data stays visible during the load (no blank-screen flash).
   Future<void> refresh() async {
     state = const AsyncLoading<List<CoinMarketModel>>()
         .copyWithPrevious(state);
     state = await AsyncValue.guard(
-      () => _fetchAndCache(ref.read(selectedCurrencyProvider)),
+      () => _fetchFromNetwork(ref.read(selectedCurrencyProvider)),
     );
   }
 
   // ── Private helpers ─────────────────────────────────────────
 
-  Future<List<CoinMarketModel>> _fetchAndCache(String currency) async {
+  /// Fetches from the network, saves to cache, and returns the list.
+  /// On [AppException] falls back to the cache and sets offline mode.
+  Future<List<CoinMarketModel>> _fetchFromNetwork(String currency) async {
     try {
       final coins = await ref
           .read(coinRepositoryProvider)
           .getTopCoins(currency: currency);
-      await _saveToCache(coins);
+      await ref.read(coinLocalDataSourceProvider).saveCoinsToCache(coins);
+      ref.read(isOfflineModeProvider.notifier).state = false;
       return coins;
     } on AppException {
-      // Network / server error: fall back to cache rather than crash.
-      final cached = await _loadFromCache();
-      if (cached != null && cached.isNotEmpty) return cached;
-      rethrow;
+      final cached =
+          await ref.read(coinLocalDataSourceProvider).loadCoinsFromCache();
+      if (cached != null && cached.isNotEmpty) {
+        ref.read(isOfflineModeProvider.notifier).state = true;
+        return cached;
+      }
+      rethrow; // No cache — surface the error to the UI.
     }
   }
 
-  Future<List<CoinMarketModel>?> _loadFromCache() async {
+  /// Silently refreshes the cache with fresh network data.
+  /// Any error is swallowed — the UI already shows valid cached data.
+  Future<void> _backgroundRefresh(String currency) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final raw = prefs.getString(AppConstants.coinsKey);
-      if (raw == null) return null;
-      final list = jsonDecode(raw) as List<dynamic>;
-      return list
-          .map((e) => CoinMarketModel.fromJson(e as Map<String, dynamic>))
-          .toList();
-    } catch (_) {
-      return null; // Corrupt cache — ignore silently.
-    }
-  }
-
-  Future<void> _saveToCache(List<CoinMarketModel> coins) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final encoded =
-          jsonEncode(coins.map((c) => c.toJson()).toList());
-      await prefs.setString(AppConstants.coinsKey, encoded);
-    } catch (_) {
-      // Cache write failure must never propagate to the UI.
-    }
+      final coins = await ref
+          .read(coinRepositoryProvider)
+          .getTopCoins(currency: currency);
+      await ref.read(coinLocalDataSourceProvider).saveCoinsToCache(coins);
+      ref.read(isOfflineModeProvider.notifier).state = false;
+      state = AsyncData(coins);
+    } catch (_) {}
   }
 }
 
@@ -100,8 +115,8 @@ class CoinsNotifier extends AsyncNotifier<List<CoinMarketModel>> {
 // 2. searchQueryProvider  — StateProvider
 // ══════════════════════════════════════════════════════════════
 
-/// The current text in the search field.
-/// Write with ref.read(searchQueryProvider.notifier).state = query;
+/// Current search-field text.  Write:
+///   ref.read(searchQueryProvider.notifier).state = query;
 final searchQueryProvider = StateProvider<String>((ref) => '');
 
 // ══════════════════════════════════════════════════════════════
@@ -129,7 +144,7 @@ final filteredCoinsProvider =
 // 4. sortOptionProvider  — StateProvider
 // ══════════════════════════════════════════════════════════════
 
-/// Active sort mode for the coin list.
+/// Active sort criterion for the coin list.
 final sortOptionProvider =
     StateProvider<SortOption>((ref) => SortOption.marketCapDesc);
 
@@ -137,7 +152,7 @@ final sortOptionProvider =
 // 5. sortedFilteredCoinsProvider  — derived Provider
 // ══════════════════════════════════════════════════════════════
 
-/// Filtered coins with [sortOptionProvider] applied.
+/// Filtered coins with the active [sortOptionProvider] applied.
 /// This is the provider the home list widget should watch.
 final sortedFilteredCoinsProvider =
     Provider<AsyncValue<List<CoinMarketModel>>>((ref) {
