@@ -32,12 +32,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
 
       // ── Coin detail: pushed on top, no nav bar ───────────────
-      // Use context.push('/home/coin/<id>') to navigate here so
-      // the back button returns to the previous shell tab.
+      // Use context.push('/home/coin/<id>', extra: imageUrl) so the
+      // Hero animation has an image to fly with before the detail loads.
       GoRoute(
         path: '/home/coin/:coinId',
         builder: (context, state) => CoinDetailScreen(
           coinId: state.pathParameters['coinId']!,
+          initialImageUrl: state.extra as String?,
         ),
       ),
 

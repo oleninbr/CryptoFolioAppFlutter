@@ -30,13 +30,16 @@ class CoinListTile extends StatelessWidget {
     final changeColor = isPositive ? AppColors.positive : AppColors.negative;
 
     return InkWell(
-      onTap: () => context.push('/home/coin/${coin.id}'),
+      onTap: () => context.push('/home/coin/${coin.id}', extra: coin.image),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Row(
           children: [
-            // ── Leading: coin icon ─────────────────────────────
-            _CoinImage(url: coin.image),
+            // ── Leading: coin icon (Hero source for detail transition)
+            Hero(
+              tag: 'coin_image_${coin.id}',
+              child: _CoinImage(url: coin.image),
+            ),
             const SizedBox(width: 12),
 
             // ── Middle: name + symbol / market cap ─────────────
