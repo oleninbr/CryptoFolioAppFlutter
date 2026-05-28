@@ -10,6 +10,7 @@ import '../../../../core/utils/currency_formatter.dart';
 import '../../domain/models/coin_detail_model.dart';
 import '../../domain/models/market_chart_model.dart';
 import '../providers/coin_detail_provider.dart';
+import '../../../portfolio/presentation/widgets/add_to_portfolio_sheet.dart';
 
 // ════════════════════════════════════════════════════════════════
 // Root screen
@@ -66,11 +67,12 @@ class CoinDetailScreen extends ConsumerWidget {
       floatingActionButton: detailAsync.hasValue
           ? FloatingActionButton.extended(
               onPressed: () {
-                final l10n = AppLocalizations.of(context)!;
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(l10n.comingSoon),
-                    behavior: SnackBarBehavior.floating,
+                showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  useSafeArea: true,
+                  builder: (_) => AddToPortfolioSheet(
+                    detail: detailAsync.valueOrNull!,
                   ),
                 );
               },

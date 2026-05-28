@@ -251,4 +251,19 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get selectPhotoSource => 'Wybierz źródło zdjęcia';
+
+  @override
+  String get currentValue => 'Bieżąca wartość';
+
+  @override
+  String get totalInvested => 'Łączna inwestycja';
+
+  @override
+  String get mustBePositive => 'Musi być większe od 0';
+
+  @override
+  String get coinAdded => 'Dodano do portfela';
+
+  @override
+  String get deleteConfirmMessage => 'Usunąć tę monetę z portfela?';
 }

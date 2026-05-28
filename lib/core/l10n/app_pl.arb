@@ -86,5 +86,10 @@
   "permissionDenied": "Odmowa dostępu",
   "permissionDeniedMessage": "Proszę zezwolić na dostęp w ustawieniach urządzenia",
   "openSettings": "Otwórz ustawienia",
-  "selectPhotoSource": "Wybierz źródło zdjęcia"
+  "selectPhotoSource": "Wybierz źródło zdjęcia",
+  "currentValue": "Bieżąca wartość",
+  "totalInvested": "Łączna inwestycja",
+  "mustBePositive": "Musi być większe od 0",
+  "coinAdded": "Dodano do portfela",
+  "deleteConfirmMessage": "Usunąć tę monetę z portfela?"
 }

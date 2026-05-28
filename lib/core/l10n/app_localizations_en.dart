@@ -248,4 +248,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectPhotoSource => 'Select photo source';
+
+  @override
+  String get currentValue => 'Current Value';
+
+  @override
+  String get totalInvested => 'Total Invested';
+
+  @override
+  String get mustBePositive => 'Must be greater than 0';
+
+  @override
+  String get coinAdded => 'Added to portfolio';
+
+  @override
+  String get deleteConfirmMessage => 'Remove this coin from your portfolio?';
 }

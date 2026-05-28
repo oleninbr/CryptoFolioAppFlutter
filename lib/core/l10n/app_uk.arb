@@ -86,5 +86,10 @@
   "permissionDenied": "Доступ заборонено",
   "permissionDeniedMessage": "Будь ласка, надайте доступ у налаштуваннях пристрою",
   "openSettings": "Відкрити налаштування",
-  "selectPhotoSource": "Виберіть джерело фото"
+  "selectPhotoSource": "Виберіть джерело фото",
+  "currentValue": "Поточна вартість",
+  "totalInvested": "Загальні інвестиції",
+  "mustBePositive": "Має бути більше 0",
+  "coinAdded": "Додано до портфеля",
+  "deleteConfirmMessage": "Видалити цю монету з портфеля?"
 }

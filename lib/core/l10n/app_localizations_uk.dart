@@ -251,4 +251,19 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get selectPhotoSource => 'Виберіть джерело фото';
+
+  @override
+  String get currentValue => 'Поточна вартість';
+
+  @override
+  String get totalInvested => 'Загальні інвестиції';
+
+  @override
+  String get mustBePositive => 'Має бути більше 0';
+
+  @override
+  String get coinAdded => 'Додано до портфеля';
+
+  @override
+  String get deleteConfirmMessage => 'Видалити цю монету з портфеля?';
 }

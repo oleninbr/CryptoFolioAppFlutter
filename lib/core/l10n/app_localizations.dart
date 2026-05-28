@@ -114,6 +114,13 @@ abstract class AppLocalizations {
   String get showPassword;
   String get hidePassword;
 
+  // ── Portfolio ────────────────────────────────────────────────────
+  String get currentValue;
+  String get totalInvested;
+  String get mustBePositive;
+  String get coinAdded;
+  String get deleteConfirmMessage;
+
   // ── Profile / photo ─────────────────────────────────────────────
   String get takePhoto;
   String get chooseFromGallery;

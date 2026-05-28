@@ -86,5 +86,10 @@
   "permissionDenied": "Permission denied",
   "permissionDeniedMessage": "Please allow access in your device settings",
   "openSettings": "Open Settings",
-  "selectPhotoSource": "Select photo source"
+  "selectPhotoSource": "Select photo source",
+  "currentValue": "Current Value",
+  "totalInvested": "Total Invested",
+  "mustBePositive": "Must be greater than 0",
+  "coinAdded": "Added to portfolio",
+  "deleteConfirmMessage": "Remove this coin from your portfolio?"
 }
