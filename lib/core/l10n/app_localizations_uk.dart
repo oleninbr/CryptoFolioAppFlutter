@@ -12,19 +12,70 @@ class AppLocalizationsUk extends AppLocalizations {
   String get appTitle => 'CryptoFolio';
 
   @override
-  String get homeTitle => 'Ринок';
+  String get home => 'Головна';
 
   @override
-  String get portfolioTitle => 'Портфель';
+  String get portfolio => 'Портфель';
 
   @override
-  String get profileTitle => 'Профіль';
+  String get profile => 'Профіль';
 
   @override
-  String get loginTitle => 'Вхід';
+  String get search => 'Пошук монет...';
 
   @override
-  String get registerTitle => 'Реєстрація';
+  String get sortBy => 'Сортувати за';
+
+  @override
+  String get sortMarketCap => 'Ринкова капіталізація';
+
+  @override
+  String get sortPriceDesc => 'Ціна (від вищої)';
+
+  @override
+  String get sortPriceAsc => 'Ціна (від нижчої)';
+
+  @override
+  String get sortChange => 'Зміна за 24г';
+
+  @override
+  String get marketCap => 'Ринкова капіталізація';
+
+  @override
+  String get volume24h => 'Обсяг за 24г';
+
+  @override
+  String get allTimeHigh => 'Максимум за весь час';
+
+  @override
+  String get allTimeLow => 'Мінімум за весь час';
+
+  @override
+  String get addToPortfolio => 'Додати до портфеля';
+
+  @override
+  String get portfolioEmpty => 'Портфель порожній';
+
+  @override
+  String get addCoin => 'Додати монету';
+
+  @override
+  String get quantity => 'Кількість';
+
+  @override
+  String get buyPrice => 'Ціна купівлі';
+
+  @override
+  String get totalValue => 'Загальна вартість';
+
+  @override
+  String get profitLoss => 'Прибуток / Збиток';
+
+  @override
+  String get login => 'Вхід';
+
+  @override
+  String get register => 'Реєстрація';
 
   @override
   String get email => 'Електронна пошта';
@@ -33,35 +84,104 @@ class AppLocalizationsUk extends AppLocalizations {
   String get password => 'Пароль';
 
   @override
-  String get signIn => 'Увійти';
-
-  @override
-  String get signUp => 'Зареєструватись';
+  String get forgotPassword => 'Забули пароль?';
 
   @override
   String get logout => 'Вийти';
 
   @override
-  String get search => 'Пошук монет...';
+  String get settings => 'Налаштування';
 
   @override
-  String get price => 'Ціна';
+  String get theme => 'Тема';
 
   @override
-  String get change24h => 'Зміна за 24г';
+  String get themeLight => 'Світла';
 
   @override
-  String get marketCap => 'Ринкова капіталізація';
+  String get themeDark => 'Темна';
 
   @override
-  String get volume => 'Обсяг';
+  String get themeSystem => 'Системна';
 
   @override
-  String get addToPortfolio => 'Додати до портфеля';
+  String get language => 'Мова';
 
   @override
-  String get errorGeneric => 'Щось пішло не так. Спробуйте ще раз.';
+  String get currency => 'Валюта';
 
   @override
-  String get loading => 'Завантаження...';
+  String get about => 'Про монету';
+
+  @override
+  String get showMore => 'Показати більше';
+
+  @override
+  String get showLess => 'Показати менше';
+
+  @override
+  String get retry => 'Повторити';
+
+  @override
+  String get noCoinsFound => 'Монети не знайдено';
+
+  @override
+  String get offlineMode => 'Офлайн-режим — показуються кешовані дані';
+
+  @override
+  String get errorLoading => 'Помилка завантаження даних';
+
+  @override
+  String get chartUnavailable => 'Графік недоступний';
+
+  @override
+  String get marketData => 'Ринкові дані';
+
+  @override
+  String get toggleTheme => 'Змінити тему';
+
+  @override
+  String get comingSoon => 'Функція портфеля скоро з\'явиться!';
+
+  @override
+  String get failedToLoad => 'Не вдалося завантажити деталі монети';
+
+  @override
+  String get profilePhoto => 'Фото профілю';
+
+  @override
+  String get changePhoto => 'Змінити фото';
+
+  @override
+  String get camera => 'Камера';
+
+  @override
+  String get gallery => 'Галерея';
+
+  @override
+  String get save => 'Зберегти';
+
+  @override
+  String get cancel => 'Скасувати';
+
+  @override
+  String get delete => 'Видалити';
+
+  @override
+  String get confirmDelete => 'Підтвердити видалення';
+
+  @override
+  String get days7 => '7Д';
+
+  @override
+  String get days14 => '14Д';
+
+  @override
+  String get days30 => '30Д';
+
+  @override
+  String get tryDifferentSearch => 'Спробуйте інший пошуковий запит';
+
+  @override
+  String get noData => 'Немає даних';
 }

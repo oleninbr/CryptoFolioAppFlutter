@@ -12,19 +12,70 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'CryptoFolio';
 
   @override
-  String get homeTitle => 'Market';
+  String get home => 'Home';
 
   @override
-  String get portfolioTitle => 'Portfolio';
+  String get portfolio => 'Portfolio';
 
   @override
-  String get profileTitle => 'Profile';
+  String get profile => 'Profile';
 
   @override
-  String get loginTitle => 'Sign In';
+  String get search => 'Search coins...';
 
   @override
-  String get registerTitle => 'Create Account';
+  String get sortBy => 'Sort by';
+
+  @override
+  String get sortMarketCap => 'Market Cap';
+
+  @override
+  String get sortPriceDesc => 'Price (high to low)';
+
+  @override
+  String get sortPriceAsc => 'Price (low to high)';
+
+  @override
+  String get sortChange => '24h Change';
+
+  @override
+  String get marketCap => 'Market Cap';
+
+  @override
+  String get volume24h => 'Volume 24h';
+
+  @override
+  String get allTimeHigh => 'All-Time High';
+
+  @override
+  String get allTimeLow => 'All-Time Low';
+
+  @override
+  String get addToPortfolio => 'Add to Portfolio';
+
+  @override
+  String get portfolioEmpty => 'Portfolio is empty';
+
+  @override
+  String get addCoin => 'Add Coin';
+
+  @override
+  String get quantity => 'Quantity';
+
+  @override
+  String get buyPrice => 'Buy Price';
+
+  @override
+  String get totalValue => 'Total Value';
+
+  @override
+  String get profitLoss => 'Profit / Loss';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get register => 'Register';
 
   @override
   String get email => 'Email';
@@ -33,35 +84,104 @@ class AppLocalizationsEn extends AppLocalizations {
   String get password => 'Password';
 
   @override
-  String get signIn => 'Sign In';
-
-  @override
-  String get signUp => 'Sign Up';
+  String get forgotPassword => 'Forgot password?';
 
   @override
   String get logout => 'Logout';
 
   @override
-  String get search => 'Search coins...';
+  String get settings => 'Settings';
 
   @override
-  String get price => 'Price';
+  String get theme => 'Theme';
 
   @override
-  String get change24h => '24h Change';
+  String get themeLight => 'Light';
 
   @override
-  String get marketCap => 'Market Cap';
+  String get themeDark => 'Dark';
 
   @override
-  String get volume => 'Volume';
+  String get themeSystem => 'System';
 
   @override
-  String get addToPortfolio => 'Add to Portfolio';
+  String get language => 'Language';
 
   @override
-  String get errorGeneric => 'Something went wrong. Please try again.';
+  String get currency => 'Currency';
 
   @override
-  String get loading => 'Loading...';
+  String get about => 'About';
+
+  @override
+  String get showMore => 'Show more';
+
+  @override
+  String get showLess => 'Show less';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get noCoinsFound => 'No coins found';
+
+  @override
+  String get offlineMode => 'Offline mode — showing cached data';
+
+  @override
+  String get errorLoading => 'Error loading data';
+
+  @override
+  String get chartUnavailable => 'Chart unavailable';
+
+  @override
+  String get marketData => 'Market Data';
+
+  @override
+  String get toggleTheme => 'Toggle theme';
+
+  @override
+  String get comingSoon => 'Portfolio feature coming soon!';
+
+  @override
+  String get failedToLoad => 'Failed to load coin details';
+
+  @override
+  String get profilePhoto => 'Profile photo';
+
+  @override
+  String get changePhoto => 'Change photo';
+
+  @override
+  String get camera => 'Camera';
+
+  @override
+  String get gallery => 'Gallery';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get confirmDelete => 'Confirm deletion';
+
+  @override
+  String get days7 => '7D';
+
+  @override
+  String get days14 => '14D';
+
+  @override
+  String get days30 => '30D';
+
+  @override
+  String get tryDifferentSearch => 'Try a different search term';
+
+  @override
+  String get noData => 'No data';
 }

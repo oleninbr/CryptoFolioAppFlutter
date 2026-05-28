@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/utils/app_exception.dart';
 import '../../../profile/presentation/providers/theme_provider.dart';
 import '../../domain/models/coin_market_model.dart';
@@ -62,12 +63,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Row(
+        title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.currency_bitcoin_rounded, size: 22),
-            SizedBox(width: 6),
-            Text('CryptoFolio'),
+            const Icon(Icons.currency_bitcoin_rounded, size: 22),
+            const SizedBox(width: 6),
+            Text(AppLocalizations.of(context)!.appTitle),
           ],
         ),
         actions: [
@@ -78,7 +79,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ? Icons.light_mode_rounded
                   : Icons.dark_mode_rounded,
             ),
-            tooltip: 'Toggle theme',
+            tooltip: AppLocalizations.of(context)!.toggleTheme,
             onPressed: () =>
                 ref.read(themeNotifierProvider.notifier).toggleTheme(),
           ),
@@ -94,6 +95,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             controller: _searchController,
             onChanged: _onSearchChanged,
             onClear: _clearSearch,
+            hint: AppLocalizations.of(context)!.search,
           ),
 
           // ── Content (with fade transition between states) ──
@@ -122,8 +124,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       loading: () => const ShimmerCoinList(key: ValueKey('shimmer')),
       error: (err, _) => _ErrorView(
         key: const ValueKey('error'),
-        message:
-            err is AppException ? err.message : 'Something went wrong.',
+        message: err is AppException
+            ? err.message
+            : AppLocalizations.of(context)!.errorLoading,
         onRetry: () => ref.read(coinsProvider.notifier).refresh(),
       ),
       data: (coins) {
@@ -219,6 +222,7 @@ class _OfflineBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
@@ -228,7 +232,7 @@ class _OfflineBanner extends StatelessWidget {
           Icon(Icons.wifi_off_rounded, size: 14, color: cs.onErrorContainer),
           const SizedBox(width: 8),
           Text(
-            'Offline mode — showing cached data',
+            l10n.offlineMode,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
                   color: cs.onErrorContainer,
                 ),
@@ -246,11 +250,13 @@ class _CoinSearchField extends StatelessWidget {
     required this.controller,
     required this.onChanged,
     required this.onClear,
+    required this.hint,
   });
 
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
   final VoidCallback onClear;
+  final String hint;
 
   @override
   Widget build(BuildContext context) {
@@ -264,7 +270,7 @@ class _CoinSearchField extends StatelessWidget {
             onChanged: onChanged,
             textInputAction: TextInputAction.search,
             decoration: InputDecoration(
-              hintText: 'Search coins…',
+              hintText: hint,
               prefixIcon: const Icon(Icons.search_rounded),
               suffixIcon: value.text.isNotEmpty
                   ? IconButton(
@@ -287,18 +293,20 @@ class _SortButton extends ConsumerWidget {
 
   final SortOption currentSort;
 
-  static const _labels = {
-    SortOption.marketCapDesc: 'Market Cap',
-    SortOption.priceDesc:     'Price: High → Low',
-    SortOption.priceAsc:      'Price: Low → High',
-    SortOption.changeDesc:    '24h Change',
+  Map<SortOption, String> _labels(AppLocalizations l10n) => {
+    SortOption.marketCapDesc: l10n.sortMarketCap,
+    SortOption.priceDesc:     l10n.sortPriceDesc,
+    SortOption.priceAsc:      l10n.sortPriceAsc,
+    SortOption.changeDesc:    l10n.sortChange,
   };
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    final labels = _labels(l10n);
     return PopupMenuButton<SortOption>(
       icon: const Icon(Icons.sort_rounded),
-      tooltip: 'Sort by',
+      tooltip: l10n.sortBy,
       onSelected: (opt) =>
           ref.read(sortOptionProvider.notifier).state = opt,
       itemBuilder: (_) => SortOption.values.map((opt) {
@@ -316,7 +324,7 @@ class _SortButton extends ConsumerWidget {
                     : null,
               ),
               const SizedBox(width: 10),
-              Text(_labels[opt] ?? opt.name),
+              Text(labels[opt] ?? opt.name),
             ],
           ),
         );
@@ -363,7 +371,7 @@ class _ErrorView extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh_rounded),
-              label: const Text('Retry'),
+              label: Text(AppLocalizations.of(context)!.retry),
             ),
           ],
         ),
@@ -391,14 +399,14 @@ class _EmptyView extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'No coins found',
+            AppLocalizations.of(context)!.noCoinsFound,
             style: theme.textTheme.titleMedium?.copyWith(
               color: theme.colorScheme.onSurface.withValues(alpha: 0.45),
             ),
           ),
           const SizedBox(height: 6),
           Text(
-            'Try a different search term',
+            AppLocalizations.of(context)!.tryDifferentSearch,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurface.withValues(alpha: 0.30),
             ),

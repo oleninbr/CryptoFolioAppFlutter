@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../core/l10n/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/currency_formatter.dart';
 import '../../domain/models/coin_detail_model.dart';
@@ -64,14 +65,17 @@ class CoinDetailScreen extends ConsumerWidget {
       ),
       floatingActionButton: detailAsync.hasValue
           ? FloatingActionButton.extended(
-              onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Portfolio feature coming soon!'),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              ),
+              onPressed: () {
+                final l10n = AppLocalizations.of(context)!;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(l10n.comingSoon),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
               icon: const Icon(Icons.add_rounded),
-              label: const Text('Add to Portfolio'),
+              label: Text(AppLocalizations.of(context)!.addToPortfolio),
             )
           : null,
     );
@@ -250,7 +254,7 @@ class _ErrorSliver extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                'Failed to load coin details',
+                AppLocalizations.of(context)!.failedToLoad,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color:
@@ -261,7 +265,7 @@ class _ErrorSliver extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh_rounded),
-                label: const Text('Retry'),
+                label: Text(AppLocalizations.of(context)!.retry),
               ),
             ],
           ),
@@ -389,10 +393,16 @@ class _PriceChartSliver extends ConsumerWidget {
           children: [
             // ── Period selector ───────────────────────────────
             SegmentedButton<int>(
-              segments: const [
-                ButtonSegment(value: 7, label: Text('7D')),
-                ButtonSegment(value: 14, label: Text('14D')),
-                ButtonSegment(value: 30, label: Text('30D')),
+              segments: [
+                ButtonSegment(
+                    value: 7,
+                    label: Text(AppLocalizations.of(context)!.days7)),
+                ButtonSegment(
+                    value: 14,
+                    label: Text(AppLocalizations.of(context)!.days14)),
+                ButtonSegment(
+                    value: 30,
+                    label: Text(AppLocalizations.of(context)!.days30)),
               ],
               selected: {selectedDays},
               onSelectionChanged: (set) =>
@@ -407,7 +417,7 @@ class _PriceChartSliver extends ConsumerWidget {
                 loading: () => _ChartShimmer(isDark: isDark),
                 error: (_, __) => Center(
                   child: Text(
-                    'Chart unavailable',
+                    AppLocalizations.of(context)!.chartUnavailable,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurface
                           .withValues(alpha: 0.4),
@@ -455,7 +465,7 @@ class _LineChartWidget extends StatelessWidget {
     if (chart.prices.isEmpty) {
       return Center(
         child: Text(
-          'No data',
+          AppLocalizations.of(context)!.noData,
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
           ),
@@ -552,7 +562,7 @@ class _MarketDataSliver extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Market Data',
+                  AppLocalizations.of(context)!.marketData,
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -562,14 +572,14 @@ class _MarketDataSliver extends StatelessWidget {
                   children: [
                     Expanded(
                       child: _MarketStat(
-                        label: 'Market Cap',
+                        label: AppLocalizations.of(context)!.marketCap,
                         value: CurrencyFormatter.formatMarketCap(
                             detail.marketCap),
                       ),
                     ),
                     Expanded(
                       child: _MarketStat(
-                        label: '24h Volume',
+                        label: AppLocalizations.of(context)!.volume24h,
                         value: CurrencyFormatter.formatMarketCap(
                             detail.totalVolume),
                       ),
@@ -581,7 +591,7 @@ class _MarketDataSliver extends StatelessWidget {
                   children: [
                     Expanded(
                       child: _MarketStat(
-                        label: 'All-Time High',
+                        label: AppLocalizations.of(context)!.allTimeHigh,
                         value: detail.ath != null
                             ? CurrencyFormatter.formatPrice(
                                 detail.ath!, 'usd')
@@ -590,7 +600,7 @@ class _MarketDataSliver extends StatelessWidget {
                     ),
                     Expanded(
                       child: _MarketStat(
-                        label: 'All-Time Low',
+                        label: AppLocalizations.of(context)!.allTimeLow,
                         value: detail.atl != null
                             ? CurrencyFormatter.formatPrice(
                                 detail.atl!, 'usd')
@@ -690,7 +700,7 @@ class _DescriptionSliverState extends State<_DescriptionSliver> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'About',
+                  AppLocalizations.of(context)!.about,
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -713,7 +723,9 @@ class _DescriptionSliverState extends State<_DescriptionSliver> {
                 GestureDetector(
                   onTap: () => setState(() => _expanded = !_expanded),
                   child: Text(
-                    _expanded ? 'Show less' : 'Show more',
+                    _expanded
+                        ? AppLocalizations.of(context)!.showLess
+                        : AppLocalizations.of(context)!.showMore,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: theme.colorScheme.primary,
                       fontWeight: FontWeight.w600,
