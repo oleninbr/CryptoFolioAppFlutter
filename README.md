@@ -8,34 +8,26 @@ A cryptocurrency portfolio tracker built with Flutter. Browse live coin prices f
 
 ---
 
-## Screenshots
-
-| Home | Coin Detail | Portfolio | Profile |
-|------|-------------|-----------|---------|
-| ![Home](screenshots/home.png) | ![Detail](screenshots/detail.png) | ![Portfolio](screenshots/portfolio.png) | ![Profile](screenshots/profile.png) |
-
----
-
 ## Features
 
-- ✅ Browse top-50 cryptocurrencies from CoinGecko API
-- ✅ Price chart for 7 / 14 / 30 days
-- ✅ Portfolio tracker with real-time P&L calculation
-- ✅ Firebase Auth — register, login, password reset
-- ✅ Cloud Firestore — portfolio storage with live sync
-- ✅ Profile photo — camera / gallery → Firebase Storage
-- ✅ Search and sort coins (market cap, price, 24 h change)
-- ✅ Offline mode (SharedPreferences cache, 5-minute TTL)
-- ✅ Localization: 🇺🇦 Ukrainian · 🇬🇧 English · 🇵🇱 Polish
-- ✅ Light / Dark / System theme
-- ✅ Animations — Hero, Fade, Shimmer, AnimatedContainer
+-  Browse top-50 cryptocurrencies from CoinGecko API
+-  Price chart for 7 / 14 / 30 days
+-  Portfolio tracker with real-time P&L calculation
+-  Firebase Auth — register, login, password reset
+-  Cloud Firestore — portfolio storage with live sync
+-  Profile photo — camera / gallery → Firebase Storage
+-  Search and sort coins (market cap, price, 24 h change)
+-  Offline mode (SharedPreferences cache, 5-minute TTL)
+-  Localization: 🇺🇦 Ukrainian · 🇬🇧 English · 🇵🇱 Polish
+-  Light / Dark / System theme
+-  Animations — Hero, Fade, Shimmer, AnimatedContainer
 
 ---
 
 ## Tech Stack
 
 | Technology | Purpose |
-|---|---|
+|
 | Flutter 3.24+ | UI Framework |
 | Dart 3.5+ | Programming Language |
 | Riverpod 2.x | State Management |
@@ -61,15 +53,13 @@ A cryptocurrency portfolio tracker built with Flutter. Browse live coin prices f
 ### Steps
 
 **1. Clone the repository**
-```bash
 git clone https://github.com/<your-username>/CryptoFolioAppFlutter.git
 cd CryptoFolioAppFlutter
-```
 
-**2. Install dependencies**
-```bash
+
+2. Install dependencies**
 flutter pub get
-```
+
 
 **3. Configure Firebase**
 
@@ -83,20 +73,17 @@ flutter pub get
 8. Run `flutterfire configure` to generate `lib/firebase_options.dart`, **or** fill in the `REPLACE_WITH_*` placeholders in the existing file manually.
 
 **4. Run the app**
-```bash
 flutter run
-```
+
 
 **5. Run tests**
-```bash
 flutter test
-```
+
 
 ---
 
 ## Project Structure
 
-```
 lib/
 ├── app.dart                        # Root widget, theme, and locale setup
 ├── main.dart                       # Entry point — Firebase initialisation
