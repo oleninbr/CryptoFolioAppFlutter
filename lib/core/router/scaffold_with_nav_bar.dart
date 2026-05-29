@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../l10n/app_localizations.dart';
+import '../l10n/app_localizations.dart';
 
 /// Persistent shell that wraps the three main tabs with a [NavigationBar].
 /// Receives [navigationShell] from [StatefulShellRoute.indexedStack], which

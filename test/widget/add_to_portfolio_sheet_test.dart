@@ -17,12 +17,12 @@ const _testDetail = CoinDetailModel(
 );
 
 Widget _buildSubject() {
-  return ProviderScope(
+  return const ProviderScope(
     child: MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: const Locale('en'),
-      home: const Scaffold(
+      locale: Locale('en'),
+      home: Scaffold(
         body: SingleChildScrollView(
           child: AddToPortfolioSheet(detail: _testDetail),
         ),

@@ -20,7 +20,7 @@ void main() {
   testWidgets('CoinListTile renders coin name, symbol, price, and change',
       (tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Scaffold(
           body: CoinListTile(coin: testCoin, currency: 'usd'),
         ),

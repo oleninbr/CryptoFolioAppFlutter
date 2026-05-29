@@ -46,3 +46,17 @@ app.*.map.json
 
 # Claude Code local session data
 .claude/
+
+# Environment variables
+.env
+.env.*
+
+# Firebase config — never commit real credentials
+google-services.json
+GoogleService-Info.plist
+lib/firebase_options.dart
+
+# Android signing
+*.keystore
+*.jks
+key.properties

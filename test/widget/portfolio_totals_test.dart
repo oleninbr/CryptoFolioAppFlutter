@@ -42,11 +42,11 @@ void main() {
           // Supply known totals so the card shows predictable numbers.
           portfolioTotalsProvider.overrideWithValue(testTotals),
         ],
-        child: MaterialApp(
+        child: const MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          locale: const Locale('en'),
-          home: const PortfolioScreen(),
+          locale: Locale('en'),
+          home: PortfolioScreen(),
         ),
       ),
     );

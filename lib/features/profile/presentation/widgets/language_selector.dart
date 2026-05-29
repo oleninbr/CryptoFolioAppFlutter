@@ -37,20 +37,26 @@ class LanguageSelector extends ConsumerWidget {
                 ),
               ),
             ),
-            for (final option in _options)
-              RadioListTile<String>(
-                value: option.code,
-                groupValue: current,
-                title: Text('${option.flag}  ${option.label}'),
-                dense: true,
-                onChanged: (code) {
-                  if (code != null) {
-                    ref
-                        .read(localeNotifierProvider.notifier)
-                        .setLocale(code);
-                  }
-                },
+            RadioGroup<String>(
+              groupValue: current,
+              onChanged: (code) {
+                if (code != null) {
+                  ref
+                      .read(localeNotifierProvider.notifier)
+                      .setLocale(code);
+                }
+              },
+              child: Column(
+                children: [
+                  for (final option in _options)
+                    RadioListTile<String>(
+                      value: option.code,
+                      title: Text('${option.flag}  ${option.label}'),
+                      dense: true,
+                    ),
+                ],
               ),
+            ),
           ],
         ),
       ),
