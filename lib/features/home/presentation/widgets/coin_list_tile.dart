@@ -7,11 +7,6 @@ import '../../../../core/utils/currency_formatter.dart';
 import '../../domain/models/coin_market_model.dart';
 import 'animated_price_widget.dart';
 
-/// One row in the coin market list.
-///
-/// Layout:
-///   [40×40 img]  Name                   $65,432.10
-///                BTC · $1.2T mktcap     +2.34%
 class CoinListTile extends StatelessWidget {
   const CoinListTile({
     super.key,
@@ -36,14 +31,13 @@ class CoinListTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Row(
           children: [
-            // ── Leading: coin icon (Hero source for detail transition)
+
             Hero(
               tag: 'coin_image_${coin.id}',
               child: _CoinImage(url: coin.image),
             ),
             const SizedBox(width: 12),
 
-            // ── Middle: name + symbol / market cap ─────────────
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,12 +88,11 @@ class CoinListTile extends StatelessWidget {
             ),
             const SizedBox(width: 8),
 
-            // ── Trailing: price + 24 h change ──────────────────
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Explicit animation: rolls number + color flash on change.
+
                 AnimatedPriceWidget(
                   price: coin.currentPrice,
                   currency: currency,
@@ -108,7 +101,7 @@ class CoinListTile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 3),
-                // Colored pill badge for the change %
+
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 6,
@@ -134,8 +127,6 @@ class CoinListTile extends StatelessWidget {
     );
   }
 }
-
-// ── Coin image with graceful placeholder / error fallback ────────
 
 class _CoinImage extends StatelessWidget {
   const _CoinImage({required this.url});

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-/// 10-row placeholder list shown while coins are loading.
-/// Each row mimics the exact proportions of [CoinListTile] so there
-/// is no layout shift when the real data arrives.
 class ShimmerCoinList extends StatelessWidget {
   const ShimmerCoinList({super.key});
 
@@ -35,11 +32,10 @@ class _ShimmerTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
       child: Row(
         children: [
-          // Leading circle — matches the 40 × 40 coin image
+
           const _ShimmerBox(width: 40, height: 40, radius: 20),
           const SizedBox(width: 12),
 
-          // Name + symbol / market-cap columns
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +56,6 @@ class _ShimmerTile extends StatelessWidget {
             ),
           ),
 
-          // Trailing price + change columns
           const Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
@@ -76,7 +71,6 @@ class _ShimmerTile extends StatelessWidget {
   }
 }
 
-/// Solid white rectangle — the shimmer package animates white areas.
 class _ShimmerBox extends StatelessWidget {
   const _ShimmerBox({
     required this.width,

@@ -27,8 +27,6 @@ class _ForgotPasswordScreenState
     super.dispose();
   }
 
-  // ── Actions ──────────────────────────────────────────────────────
-
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
@@ -73,8 +71,6 @@ class _ForgotPasswordScreenState
     }
   }
 
-  // ── Build ─────────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -97,7 +93,7 @@ class _ForgotPasswordScreenState
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // ── Icon ──────────────────────────────────────────
+
                   Center(
                     child: Container(
                       width: 72,
@@ -115,7 +111,6 @@ class _ForgotPasswordScreenState
                   ),
                   const SizedBox(height: 24),
 
-                  // ── Subtitle ──────────────────────────────────────
                   Text(
                     l10n.forgotPasswordSubtitle,
                     style: theme.textTheme.bodyMedium?.copyWith(
@@ -125,7 +120,6 @@ class _ForgotPasswordScreenState
                   ),
                   const SizedBox(height: 32),
 
-                  // ── Email field ───────────────────────────────────
                   AuthTextField(
                     label: l10n.email,
                     hint: 'you@example.com',
@@ -143,7 +137,6 @@ class _ForgotPasswordScreenState
                   ),
                   const SizedBox(height: 24),
 
-                  // ── Send button ───────────────────────────────────
                   FilledButton(
                     onPressed: _loading ? null : _submit,
                     style: FilledButton.styleFrom(

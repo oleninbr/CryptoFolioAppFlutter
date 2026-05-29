@@ -8,10 +8,6 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/currency_formatter.dart';
 import '../providers/portfolio_provider.dart';
 
-// ════════════════════════════════════════════════════════════════
-// Root screen
-// ════════════════════════════════════════════════════════════════
-
 class PortfolioScreen extends ConsumerWidget {
   const PortfolioScreen({super.key});
 
@@ -41,10 +37,6 @@ class PortfolioScreen extends ConsumerWidget {
     );
   }
 }
-
-// ════════════════════════════════════════════════════════════════
-// Portfolio list — totals card + per-coin tiles
-// ════════════════════════════════════════════════════════════════
 
 class _PortfolioList extends ConsumerWidget {
   const _PortfolioList({required this.items});
@@ -81,7 +73,7 @@ class _PortfolioList extends ConsumerWidget {
 
     return ListView.builder(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
-      itemCount: items.length + 1, // +1 for totals card
+      itemCount: items.length + 1,
       itemBuilder: (context, index) {
         if (index == 0) return _TotalsCard(l10n: l10n);
 
@@ -113,10 +105,6 @@ class _PortfolioList extends ConsumerWidget {
   }
 }
 
-// ════════════════════════════════════════════════════════════════
-// Totals card with AnimatedContainer P&L highlight
-// ════════════════════════════════════════════════════════════════
-
 class _TotalsCard extends ConsumerWidget {
   const _TotalsCard({required this.l10n});
   final AppLocalizations l10n;
@@ -142,7 +130,7 @@ class _TotalsCard extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ── Top row: current value ───────────────────────
+
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -169,7 +157,7 @@ class _TotalsCard extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  // Invested amount (right)
+
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -195,7 +183,6 @@ class _TotalsCard extends ConsumerWidget {
               ),
               const SizedBox(height: 14),
 
-              // ── P&L row with AnimatedContainer ───────────────
               AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.easeInOut,
@@ -260,10 +247,6 @@ class _TotalsCard extends ConsumerWidget {
   }
 }
 
-// ════════════════════════════════════════════════════════════════
-// Per-coin tile
-// ════════════════════════════════════════════════════════════════
-
 class _PortfolioItemTile extends StatelessWidget {
   const _PortfolioItemTile({required this.itemWithPrice});
 
@@ -290,7 +273,7 @@ class _PortfolioItemTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         child: Row(
           children: [
-            // ── Coin icon ────────────────────────────────────────
+
             CachedNetworkImage(
               imageUrl: item.coinImage,
               width: 44,
@@ -312,7 +295,6 @@ class _PortfolioItemTile extends StatelessWidget {
             ),
             const SizedBox(width: 12),
 
-            // ── Name + quantity ───────────────────────────────────
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -335,7 +317,6 @@ class _PortfolioItemTile extends StatelessWidget {
               ),
             ),
 
-            // ── Current value + P&L ────────────────────────────────
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -374,10 +355,6 @@ class _PortfolioItemTile extends StatelessWidget {
     );
   }
 }
-
-// ════════════════════════════════════════════════════════════════
-// Empty state
-// ════════════════════════════════════════════════════════════════
 
 class _EmptyState extends StatelessWidget {
   const _EmptyState({required this.l10n});
@@ -418,10 +395,6 @@ class _EmptyState extends StatelessWidget {
     );
   }
 }
-
-// ════════════════════════════════════════════════════════════════
-// Error state
-// ════════════════════════════════════════════════════════════════
 
 class _ErrorState extends StatelessWidget {
   const _ErrorState({required this.l10n});

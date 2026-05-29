@@ -8,15 +8,10 @@ final authRemoteDataSourceProvider = Provider<AuthRemoteDataSource>(
   (_) => const AuthRemoteDataSource(),
 );
 
-/// Wraps [FirebaseAuth] and exposes typed domain methods.
-/// All [FirebaseAuthException]s are converted to [AppException] with
-/// human-readable messages before being re-thrown.
 class AuthRemoteDataSource {
   const AuthRemoteDataSource();
 
   FirebaseAuth get _auth => FirebaseAuth.instance;
-
-  // ── Helpers ──────────────────────────────────────────────────────
 
   AppUserModel _mapUser(User user) => AppUserModel(
         uid: user.uid,
@@ -41,8 +36,6 @@ class AuthRemoteDataSource {
     };
     return AppException(message: message, type: AppExceptionType.auth);
   }
-
-  // ── Public API ───────────────────────────────────────────────────
 
   Future<AppUserModel> signIn(String email, String password) async {
     try {
@@ -78,13 +71,11 @@ class AuthRemoteDataSource {
     }
   }
 
-  /// Emits [AppUserModel] when signed in, or `null` when signed out.
   Stream<AppUserModel?> get authStateChanges =>
       _auth.authStateChanges().map(
             (user) => user == null ? null : _mapUser(user),
           );
 
-  /// Returns the current user synchronously, or `null` if not signed in.
   AppUserModel? get currentUser {
     final user = _auth.currentUser;
     return user == null ? null : _mapUser(user);

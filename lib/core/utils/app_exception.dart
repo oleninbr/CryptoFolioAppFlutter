@@ -1,15 +1,13 @@
-/// Classifies the origin of an [AppException].
+
 enum AppExceptionType {
-  network,  // no internet / connection refused
-  server,   // HTTP 4xx / 5xx response
-  timeout,  // connect / receive timeout
-  auth,     // 401 or 403
-  parse,    // JSON decode failure
-  unknown,  // anything else
+  network,
+  server,
+  timeout,
+  auth,
+  parse,
+  unknown,
 }
 
-/// Domain-level exception thrown by repositories and data sources.
-/// Always carries a human-readable [message] and a machine-readable [type].
 class AppException implements Exception {
   const AppException({
     required this.message,

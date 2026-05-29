@@ -7,9 +7,6 @@ import '../../../home/presentation/providers/coins_provider.dart';
 import '../../data/datasources/portfolio_remote_datasource.dart';
 import '../../domain/models/portfolio_item_model.dart';
 
-// ── Helper types ───────────────────────────────────────────────────────────────
-
-/// A portfolio item paired with its live market price.
 class PortfolioItemWithPrice {
   const PortfolioItemWithPrice({
     required this.item,
@@ -20,7 +17,6 @@ class PortfolioItemWithPrice {
   final double currentPrice;
 }
 
-/// Aggregated portfolio totals derived from [portfolioWithPricesProvider].
 class PortfolioTotals {
   const PortfolioTotals({
     required this.totalInvested,
@@ -42,18 +38,11 @@ class PortfolioTotals {
   );
 }
 
-// ── a) Stream provider (real-time Firestore) ───────────────────────────────────
-
-/// Real-time stream of portfolio items for [uid].
 final portfolioStreamProvider =
     StreamProvider.family<List<PortfolioItemModel>, String>((ref, uid) {
   return ref.watch(portfolioRemoteDataSourceProvider).watchPortfolio(uid);
 });
 
-// ── b) Portfolio combined with live market prices ──────────────────────────────
-
-/// Merges [portfolioStreamProvider] with current coin prices from
-/// [coinsProvider].  Returns [AsyncLoading] until both sources are ready.
 final portfolioWithPricesProvider =
     Provider<AsyncValue<List<PortfolioItemWithPrice>>>((ref) {
   final authAsync = ref.watch(authStateProvider);
@@ -94,8 +83,6 @@ final portfolioWithPricesProvider =
   );
 });
 
-// ── c) Aggregated totals ───────────────────────────────────────────────────────
-
 final portfolioTotalsProvider = Provider<PortfolioTotals>((ref) {
   final items = ref.watch(portfolioWithPricesProvider).valueOrNull ?? const [];
 
@@ -114,8 +101,6 @@ final portfolioTotalsProvider = Provider<PortfolioTotals>((ref) {
   );
 });
 
-// ── d) Action notifier ────────────────────────────────────────────────────────
-
 final portfolioNotifierProvider =
     AsyncNotifierProvider<PortfolioNotifier, void>(PortfolioNotifier.new);
 
@@ -123,14 +108,12 @@ class PortfolioNotifier extends AsyncNotifier<void> {
   @override
   FutureOr<void> build() {}
 
-  /// Adds a new item or updates quantity if the coin is already in portfolio.
   Future<void> addItem(PortfolioItemModel item) async {
     final uid = ref.read(authStateProvider).valueOrNull?.uid;
     if (uid == null) return;
     await ref.read(portfolioRemoteDataSourceProvider).addOrUpdateItem(uid, item);
   }
 
-  /// Removes the coin with [coinId] from the portfolio.
   Future<void> deleteItem(String coinId) async {
     final uid = ref.read(authStateProvider).valueOrNull?.uid;
     if (uid == null) return;

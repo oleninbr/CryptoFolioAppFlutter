@@ -1,4 +1,4 @@
-/// Immutable domain representation of an authenticated user.
+
 class AppUserModel {
   const AppUserModel({
     required this.uid,

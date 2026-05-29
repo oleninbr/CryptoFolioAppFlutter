@@ -12,10 +12,6 @@ import '../../domain/models/market_chart_model.dart';
 import '../providers/coin_detail_provider.dart';
 import '../../../portfolio/presentation/widgets/add_to_portfolio_sheet.dart';
 
-// ════════════════════════════════════════════════════════════════
-// Root screen
-// ════════════════════════════════════════════════════════════════
-
 class CoinDetailScreen extends ConsumerWidget {
   const CoinDetailScreen({
     super.key,
@@ -25,16 +21,12 @@ class CoinDetailScreen extends ConsumerWidget {
 
   final String coinId;
 
-  /// Thumbnail from the list — used as the Hero source until the
-  /// large image loads from the detail endpoint.
   final String? initialImageUrl;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final detailAsync = ref.watch(coinDetailProvider(coinId));
 
-    // Prefer the large image from the loaded detail; fall back to the
-    // thumbnail that was passed from the home screen via route extras.
     final imageUrl = detailAsync.valueOrNull?.image ?? initialImageUrl ?? '';
     final coinName = detailAsync.valueOrNull?.name;
 
@@ -83,10 +75,6 @@ class CoinDetailScreen extends ConsumerWidget {
     );
   }
 }
-
-// ════════════════════════════════════════════════════════════════
-// SliverAppBar — always rendered, hosts the Hero animation
-// ════════════════════════════════════════════════════════════════
 
 class _CoinSliverAppBar extends StatelessWidget {
   const _CoinSliverAppBar({
@@ -166,10 +154,6 @@ class _CoinSliverAppBar extends StatelessWidget {
   }
 }
 
-// ════════════════════════════════════════════════════════════════
-// Loading state
-// ════════════════════════════════════════════════════════════════
-
 class _LoadingSliver extends StatelessWidget {
   const _LoadingSliver();
 
@@ -186,18 +170,18 @@ class _LoadingSliver extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Price area
+
               _ShimmerBox(width: 180, height: 38, radius: 6),
               SizedBox(height: 10),
               _ShimmerBox(width: 90, height: 22, radius: 6),
               SizedBox(height: 28),
-              // Chart area
+
               _ShimmerBox(width: double.infinity, height: 220, radius: 10),
               SizedBox(height: 24),
-              // Market data card
+
               _ShimmerBox(width: double.infinity, height: 140, radius: 10),
               SizedBox(height: 12),
-              // Description card
+
               _ShimmerBox(width: double.infinity, height: 100, radius: 10),
             ],
           ),
@@ -230,10 +214,6 @@ class _ShimmerBox extends StatelessWidget {
     );
   }
 }
-
-// ════════════════════════════════════════════════════════════════
-// Error state
-// ════════════════════════════════════════════════════════════════
 
 class _ErrorSliver extends StatelessWidget {
   const _ErrorSliver({required this.onRetry});
@@ -277,10 +257,6 @@ class _ErrorSliver extends StatelessWidget {
   }
 }
 
-// ════════════════════════════════════════════════════════════════
-// Price header
-// ════════════════════════════════════════════════════════════════
-
 class _PriceHeaderSliver extends StatelessWidget {
   const _PriceHeaderSliver({required this.detail});
   final CoinDetailModel detail;
@@ -300,7 +276,7 @@ class _PriceHeaderSliver extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Left: price + 24h badge ──────────────────────────
+
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -345,7 +321,6 @@ class _PriceHeaderSliver extends StatelessWidget {
               ),
             ),
 
-            // ── Right: market-cap rank badge ────────────────────
             if (detail.marketCapRank != null)
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -372,10 +347,6 @@ class _PriceHeaderSliver extends StatelessWidget {
   }
 }
 
-// ════════════════════════════════════════════════════════════════
-// Price chart  (ConsumerWidget — needs ref for period selector)
-// ════════════════════════════════════════════════════════════════
-
 class _PriceChartSliver extends ConsumerWidget {
   const _PriceChartSliver({required this.coinId});
   final String coinId;
@@ -393,7 +364,7 @@ class _PriceChartSliver extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // ── Period selector ───────────────────────────────
+
             SegmentedButton<int>(
               segments: [
                 ButtonSegment(
@@ -412,7 +383,6 @@ class _PriceChartSliver extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
 
-            // ── Chart area ────────────────────────────────────
             SizedBox(
               height: 180,
               child: chartAsync.when(
@@ -543,10 +513,6 @@ class _LineChartWidget extends StatelessWidget {
   }
 }
 
-// ════════════════════════════════════════════════════════════════
-// Market data card
-// ════════════════════════════════════════════════════════════════
-
 class _MarketDataSliver extends StatelessWidget {
   const _MarketDataSliver({required this.detail});
   final CoinDetailModel detail;
@@ -651,10 +617,6 @@ class _MarketStat extends StatelessWidget {
   }
 }
 
-// ════════════════════════════════════════════════════════════════
-// About / description (expandable)
-// ════════════════════════════════════════════════════════════════
-
 class _DescriptionSliver extends StatefulWidget {
   const _DescriptionSliver({required this.description});
   final String description;
@@ -666,7 +628,6 @@ class _DescriptionSliver extends StatefulWidget {
 class _DescriptionSliverState extends State<_DescriptionSliver> {
   bool _expanded = false;
 
-  /// Strips HTML tags and decodes common HTML entities.
   String _stripHtml(String html) {
     return html
         .replaceAll(RegExp(r'<[^>]*>'), '')
@@ -742,10 +703,6 @@ class _DescriptionSliverState extends State<_DescriptionSliver> {
     );
   }
 }
-
-// ════════════════════════════════════════════════════════════════
-// Bottom padding — space for the FAB
-// ════════════════════════════════════════════════════════════════
 
 class _BottomPaddingSliver extends StatelessWidget {
   const _BottomPaddingSliver();

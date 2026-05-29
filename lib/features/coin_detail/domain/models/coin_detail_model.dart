@@ -1,7 +1,4 @@
-/// Detailed coin data from GET /coins/{id}.
-///
-/// CoinGecko nests prices inside `market_data` → `current_price` → `usd`.
-/// Descriptions come from `description` → `en` and may contain HTML tags.
+
 class CoinDetailModel {
   const CoinDetailModel({
     required this.id,
@@ -22,18 +19,16 @@ class CoinDetailModel {
   final String  id;
   final String  symbol;
   final String  name;
-  final String  image; // large image URL
+  final String  image;
   final double  currentPrice;
   final double  marketCap;
   final double  totalVolume;
-  final String? description; // may contain HTML
+  final String? description;
   final double? ath;
   final double? atl;
   final double? priceChangePercentage24h;
   final double? priceChangePercentage7d;
   final int?    marketCapRank;
-
-  // ── Deserialization ──────────────────────────────────────────
 
   factory CoinDetailModel.fromJson(Map<String, dynamic> json) {
     final market      = (json['market_data']   as Map<String, dynamic>?) ?? {};
@@ -64,8 +59,6 @@ class CoinDetailModel {
     );
   }
 
-  // ── Serialization ────────────────────────────────────────────
-
   Map<String, dynamic> toJson() => {
         'id':             id,
         'symbol':         symbol,
@@ -83,8 +76,6 @@ class CoinDetailModel {
           'price_change_percentage_7d':  priceChangePercentage7d,
         },
       };
-
-  // ── copyWith ─────────────────────────────────────────────────
 
   CoinDetailModel copyWith({
     String? id,

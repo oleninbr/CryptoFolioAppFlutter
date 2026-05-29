@@ -14,8 +14,6 @@ class CryptoFolioApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
 
-    // valueOrNull is null only during the initial SharedPreferences load
-    // (a single frame at most); safe fallbacks are used until prefs load.
     final themeMode =
         ref.watch(themeNotifierProvider).valueOrNull ?? ThemeMode.system;
     final locale = ref.watch(localeNotifierProvider).valueOrNull;
@@ -24,16 +22,13 @@ class CryptoFolioApp extends ConsumerWidget {
       title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
 
-      // ── Themes ──────────────────────────────────────────────
       theme:     AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
 
-      // ── Navigation ──────────────────────────────────────────
       routerConfig: router,
 
-      // ── Localizations ───────────────────────────────────────
-      locale:                 locale,  // null = follow device locale
+      locale:                 locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: const [
         Locale('en'),

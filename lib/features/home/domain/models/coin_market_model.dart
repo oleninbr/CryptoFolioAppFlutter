@@ -1,4 +1,4 @@
-/// Represents one row from GET /coins/markets.
+
 class CoinMarketModel {
   const CoinMarketModel({
     required this.id,
@@ -24,8 +24,6 @@ class CoinMarketModel {
   final double? totalVolume;
   final double? ath;
 
-  // ── Deserialization ──────────────────────────────────────────
-
   factory CoinMarketModel.fromJson(Map<String, dynamic> json) {
     return CoinMarketModel(
       id:           json['id']     as String,
@@ -42,13 +40,12 @@ class CoinMarketModel {
     );
   }
 
-  /// Parses a single result from GET /search — contains no price data.
   factory CoinMarketModel.fromSearchJson(Map<String, dynamic> json) {
     return CoinMarketModel(
       id:           json['id']     as String,
       symbol:       (json['symbol'] as String? ?? '').toLowerCase(),
       name:         json['name']   as String? ?? '',
-      // /search returns 'large' or 'thumb' instead of 'image'
+
       image:        json['large']  as String? ??
                     json['thumb']  as String? ?? '',
       currentPrice: 0.0,
@@ -56,8 +53,6 @@ class CoinMarketModel {
       marketCapRank: json['market_cap_rank'] as int? ?? 0,
     );
   }
-
-  // ── Serialization ────────────────────────────────────────────
 
   Map<String, dynamic> toJson() => {
         'id':            id,
@@ -71,8 +66,6 @@ class CoinMarketModel {
         'total_volume':  totalVolume,
         'ath':           ath,
       };
-
-  // ── copyWith ─────────────────────────────────────────────────
 
   CoinMarketModel copyWith({
     String? id,

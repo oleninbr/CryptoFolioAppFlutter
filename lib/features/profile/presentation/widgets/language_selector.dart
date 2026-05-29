@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../core/l10n/app_localizations.dart';
 import '../providers/locale_provider.dart';
 
-/// Language-selection card shown on the Profile screen.
-/// Each option is a [RadioListTile] with a flag emoji and native language name.
 class LanguageSelector extends ConsumerWidget {
   const LanguageSelector({super.key});
 

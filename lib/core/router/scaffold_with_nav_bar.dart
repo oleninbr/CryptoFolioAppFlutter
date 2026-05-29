@@ -3,9 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import '../l10n/app_localizations.dart';
 
-/// Persistent shell that wraps the three main tabs with a [NavigationBar].
-/// Receives [navigationShell] from [StatefulShellRoute.indexedStack], which
-/// keeps each branch's navigator alive so tab state is never lost on switch.
 class ScaffoldWithNavBar extends StatelessWidget {
   const ScaffoldWithNavBar({
     super.key,

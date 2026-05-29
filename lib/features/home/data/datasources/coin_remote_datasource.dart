@@ -11,14 +11,10 @@ final coinRemoteDataSourceProvider = Provider<CoinRemoteDataSource>((ref) {
   return CoinRemoteDataSource(ref.watch(dioProvider));
 });
 
-/// Fetches coin data directly from the CoinGecko REST API.
-/// All [DioException]s are mapped to [AppException] before being rethrown.
 class CoinRemoteDataSource {
   const CoinRemoteDataSource(this._dio);
 
   final Dio _dio;
-
-  // ── Public API ───────────────────────────────────────────────
 
   Future<List<CoinMarketModel>> getTopCoins({
     String currency = ApiConstants.vsCurrency,
@@ -97,8 +93,6 @@ class CoinRemoteDataSource {
       throw _mapDioException(e);
     }
   }
-
-  // ── Error mapping ────────────────────────────────────────────
 
   AppException _mapDioException(DioException e) {
     switch (e.type) {

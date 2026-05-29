@@ -30,8 +30,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     super.dispose();
   }
 
-  // ── Actions ──────────────────────────────────────────────────────
-
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     await ref
@@ -39,15 +37,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         .signUp(_emailCtrl.text, _passwordCtrl.text);
   }
 
-  // ── Build ─────────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
 
-    // Show error snackbar on auth failure.
     ref.listen<AsyncValue>(authNotifierProvider, (_, next) {
       if (next.hasError) {
         final err = next.error;
@@ -77,7 +72,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // ── Logo ──────────────────────────────────────────
+
                   Center(
                     child: Container(
                       width: 80,
@@ -99,7 +94,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // ── Title ─────────────────────────────────────────
                   Text(
                     l10n.appTitle,
                     style: theme.textTheme.headlineMedium?.copyWith(
@@ -117,7 +111,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ),
                   const SizedBox(height: 36),
 
-                  // ── Email ─────────────────────────────────────────
                   AuthTextField(
                     label: l10n.email,
                     hint: 'you@example.com',
@@ -136,7 +129,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ),
                   const SizedBox(height: 16),
 
-                  // ── Password ──────────────────────────────────────
                   AuthTextField(
                     label: l10n.password,
                     hint: '••••••',
@@ -164,7 +156,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ),
                   const SizedBox(height: 16),
 
-                  // ── Confirm password ──────────────────────────────
                   AuthTextField(
                     label: l10n.confirmPassword,
                     hint: '••••••',
@@ -192,7 +183,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ),
                   const SizedBox(height: 24),
 
-                  // ── Register button ───────────────────────────────
                   FilledButton(
                     onPressed: isLoading ? null : _submit,
                     style: FilledButton.styleFrom(
@@ -215,7 +205,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // ── Login link ────────────────────────────────────
                   Center(
                     child: TextButton(
                       onPressed: () => context.go('/login'),

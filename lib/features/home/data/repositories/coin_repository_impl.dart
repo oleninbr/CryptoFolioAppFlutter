@@ -5,9 +5,6 @@ import '../datasources/coin_remote_datasource.dart';
 import '../../../coin_detail/domain/models/coin_detail_model.dart';
 import '../../../coin_detail/domain/models/market_chart_model.dart';
 
-/// Concrete implementation of [CoinRepository].
-/// Delegates to [CoinRemoteDataSource] and re-wraps any unexpected errors
-/// as [AppException] so the presentation layer only handles one exception type.
 class CoinRepositoryImpl implements CoinRepository {
   const CoinRepositoryImpl(this._dataSource);
 

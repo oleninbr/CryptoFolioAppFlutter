@@ -1,9 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// A single coin holding in the user's portfolio.
-///
-/// Stored in Firestore at `users/{uid}/portfolio/{coinId}`.
-/// The Firestore document ID equals [coinId], so [id] == [coinId].
 class PortfolioItemModel {
   const PortfolioItemModel({
     required this.id,
@@ -16,25 +12,19 @@ class PortfolioItemModel {
     required this.addedAt,
   });
 
-  /// Firestore document ID (equals [coinId]).
   final String id;
 
-  /// CoinGecko coin identifier (e.g. "bitcoin", "ethereum").
   final String coinId;
 
   final String coinName;
   final String coinSymbol;
   final String coinImage;
 
-  /// Number of coins held.
   final double quantity;
 
-  /// Purchase price per coin in USD.
   final double buyPrice;
 
   final DateTime addedAt;
-
-  // ── Computed fields (not stored in Firestore) ────────────────────
 
   double get totalInvested => quantity * buyPrice;
 
@@ -47,8 +37,6 @@ class PortfolioItemModel {
     if (totalInvested == 0) return 0;
     return (profitLoss(currentPrice) / totalInvested) * 100;
   }
-
-  // ── Serialisation ────────────────────────────────────────────────
 
   factory PortfolioItemModel.fromJson(Map<String, dynamic> json) {
     final addedAtRaw = json['addedAt'];
@@ -83,8 +71,6 @@ class PortfolioItemModel {
         'buyPrice': buyPrice,
         'addedAt': Timestamp.fromDate(addedAt),
       };
-
-  // ── copyWith ─────────────────────────────────────────────────────
 
   PortfolioItemModel copyWith({
     String? id,

@@ -8,7 +8,7 @@ void main() {
     id: 'bitcoin',
     symbol: 'btc',
     name: 'Bitcoin',
-    image: '',        // empty → CachedNetworkImage shows errorWidget immediately
+    image: '',
     currentPrice: 65000.0,
     marketCap: 1200000000000.0,
     marketCapRank: 1,
@@ -26,7 +26,7 @@ void main() {
         ),
       ),
     );
-    await tester.pump(); // process first frame
+    await tester.pump();
 
     expect(find.text('Bitcoin'), findsOneWidget);
     expect(find.text('BTC'), findsOneWidget);

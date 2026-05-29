@@ -11,14 +11,9 @@ final coinLocalDataSourceProvider = Provider<CoinLocalDataSource>(
   (_) => const CoinLocalDataSource(),
 );
 
-/// Encapsulates all SharedPreferences read/write for the app.
-/// Every method swallows storage errors so callers never crash on I/O.
 class CoinLocalDataSource {
   const CoinLocalDataSource();
 
-  // ── Coins cache ────────────────────────────────────────────────
-
-  /// Persists [coins] as JSON and records the current timestamp.
   Future<void> saveCoinsToCache(List<CoinMarketModel> coins) async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -33,7 +28,6 @@ class CoinLocalDataSource {
     } catch (_) {}
   }
 
-  /// Returns the cached coin list, or `null` if the cache is missing/corrupt.
   Future<List<CoinMarketModel>?> loadCoinsFromCache() async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -44,11 +38,10 @@ class CoinLocalDataSource {
           .map((e) => CoinMarketModel.fromJson(e as Map<String, dynamic>))
           .toList();
     } catch (_) {
-      return null; // Corrupt cache — discard silently.
+      return null;
     }
   }
 
-  /// Returns `true` if no cache exists or it is older than [AppConstants.cacheExpiry].
   Future<bool> isCacheExpired() async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -60,8 +53,6 @@ class CoinLocalDataSource {
       return true;
     }
   }
-
-  // ── Last viewed coin ───────────────────────────────────────────
 
   Future<void> saveLastViewedCoin(String coinId) async {
     try {
@@ -78,8 +69,6 @@ class CoinLocalDataSource {
       return null;
     }
   }
-
-  // ── Theme ──────────────────────────────────────────────────────
 
   Future<void> saveThemeMode(ThemeMode mode) async {
     try {

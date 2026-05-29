@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Reusable text-field for auth forms.
-/// Renders an [OutlineInputBorder] with 12 px corner radius and an optional
-/// prefix / suffix icon.  Pass [obscureText] for password fields.
 class AuthTextField extends StatelessWidget {
   const AuthTextField({
     super.key,

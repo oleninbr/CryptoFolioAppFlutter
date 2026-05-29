@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/constants/app_constants.dart';
 
-/// Supported display currencies.
 const List<String> supportedCurrencies = ['usd', 'eur', 'uah'];
 
 final selectedCurrencyProvider =
@@ -10,11 +9,6 @@ final selectedCurrencyProvider =
   SelectedCurrencyNotifier.new,
 );
 
-/// Holds the user's chosen vs-currency (e.g. "usd").
-///
-/// [build] returns the default "usd" synchronously, then immediately
-/// fires an async load from SharedPreferences so the persisted value
-/// replaces the default before the first frame is painted.
 class SelectedCurrencyNotifier extends Notifier<String> {
   @override
   String build() {
@@ -22,7 +16,6 @@ class SelectedCurrencyNotifier extends Notifier<String> {
     return 'usd';
   }
 
-  /// Change the active currency and persist the selection.
   Future<void> select(String currency) async {
     assert(
       supportedCurrencies.contains(currency),
@@ -32,8 +25,6 @@ class SelectedCurrencyNotifier extends Notifier<String> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(AppConstants.currencyKey, currency);
   }
-
-  // ── Private helpers ──────────────────────────────────────────
 
   void _loadPersisted() async {
     final prefs = await SharedPreferences.getInstance();

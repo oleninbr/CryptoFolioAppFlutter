@@ -4,9 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/constants/app_constants.dart';
 
-/// Persisted locale provider.
-/// Loads the saved language code from SharedPreferences on first access.
-/// Change with: ref.read(localeNotifierProvider.notifier).setLocale('uk');
 final localeNotifierProvider =
     AsyncNotifierProvider<LocaleNotifier, Locale>(LocaleNotifier.new);
 
@@ -18,7 +15,6 @@ class LocaleNotifier extends AsyncNotifier<Locale> {
     return Locale(code);
   }
 
-  /// Persists [languageCode] and updates the app locale immediately.
   Future<void> setLocale(String languageCode) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(AppConstants.languageKey, languageCode);

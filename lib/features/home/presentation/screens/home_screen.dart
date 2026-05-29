@@ -23,16 +23,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   final _searchController = TextEditingController();
   Timer? _debounce;
 
-  // ── Lifecycle ────────────────────────────────────────────────
-
   @override
   void dispose() {
     _debounce?.cancel();
     _searchController.dispose();
     super.dispose();
   }
-
-  // ── Handlers ─────────────────────────────────────────────────
 
   void _onSearchChanged(String query) {
     _debounce?.cancel();
@@ -47,8 +43,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ref.read(searchQueryProvider.notifier).state = '';
   }
 
-  // ── Build ─────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     final coinsAsync = ref.watch(sortedFilteredCoinsProvider);
@@ -56,7 +50,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final sortOption = ref.watch(sortOptionProvider);
     final isOffline  = ref.watch(isOfflineModeProvider);
 
-    // valueOrNull == null only during the first frame while prefs load.
     final themeMode  =
         ref.watch(themeNotifierProvider).valueOrNull ?? ThemeMode.system;
 
@@ -87,10 +80,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       body: Column(
         children: [
-          // ── Offline banner ─────────────────────────────────
+
           if (isOffline) const _OfflineBanner(),
 
-          // ── Search field ───────────────────────────────────
           _CoinSearchField(
             controller: _searchController,
             onChanged: _onSearchChanged,
@@ -98,7 +90,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             hint: AppLocalizations.of(context)!.search,
           ),
 
-          // ── Content (with fade transition between states) ──
           Expanded(
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 350),
@@ -113,8 +104,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
     );
   }
-
-  // ── Body dispatcher ──────────────────────────────────────────
 
   Widget _buildBody(
     AsyncValue<List<CoinMarketModel>> coinsAsync,
@@ -141,8 +130,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ScrollViewKeyboardDismissBehavior.onDrag,
             itemCount: coins.length,
             itemBuilder: (_, index) => _FadeInItem(
-              // Stable key keeps the animation state alive while the user
-              // scrolls; the widget re-animates only when data is replaced.
+
               key: ValueKey(coins[index].id),
               index: index,
               child: CoinListTile(
@@ -157,13 +145,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 }
 
-// ════════════════════════════════════════════════════════════════
-// Fade-in wrapper  (implicit-style: AnimationController + FadeTransition)
-// ════════════════════════════════════════════════════════════════
-
-/// Fades each list item in with a staggered delay based on its [index].
-/// Animation type: implicit — opacity transition driven by an
-/// [AnimationController] that fires once on item appearance.
 class _FadeInItem extends StatefulWidget {
   const _FadeInItem({
     super.key,
@@ -192,7 +173,7 @@ class _FadeInItemState extends State<_FadeInItem>
   @override
   void initState() {
     super.initState();
-    // Cap delay at 300 ms so items below the fold don't wait too long.
+
     final delayMs = (widget.index * 50).clamp(0, 300);
     Future.delayed(Duration(milliseconds: delayMs), () {
       if (mounted) _controller.forward();
@@ -209,12 +190,6 @@ class _FadeInItemState extends State<_FadeInItem>
   Widget build(BuildContext context) =>
       FadeTransition(opacity: _opacity, child: widget.child);
 }
-
-// ════════════════════════════════════════════════════════════════
-// Private widgets
-// ════════════════════════════════════════════════════════════════
-
-// ── Offline banner ────────────────────────────────────────────────
 
 class _OfflineBanner extends StatelessWidget {
   const _OfflineBanner();
@@ -242,8 +217,6 @@ class _OfflineBanner extends StatelessWidget {
     );
   }
 }
-
-// ── Search field ─────────────────────────────────────────────────
 
 class _CoinSearchField extends StatelessWidget {
   const _CoinSearchField({
@@ -285,8 +258,6 @@ class _CoinSearchField extends StatelessWidget {
     );
   }
 }
-
-// ── Sort popup button ─────────────────────────────────────────────
 
 class _SortButton extends ConsumerWidget {
   const _SortButton({required this.currentSort});
@@ -333,8 +304,6 @@ class _SortButton extends ConsumerWidget {
   }
 }
 
-// ── Error state ───────────────────────────────────────────────────
-
 class _ErrorView extends StatelessWidget {
   const _ErrorView({
     super.key,
@@ -379,8 +348,6 @@ class _ErrorView extends StatelessWidget {
     );
   }
 }
-
-// ── Empty search results ──────────────────────────────────────────
 
 class _EmptyView extends StatelessWidget {
   const _EmptyView({super.key});

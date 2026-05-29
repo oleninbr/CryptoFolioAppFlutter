@@ -7,7 +7,6 @@ class AppTheme {
   static ThemeData get lightTheme => _buildTheme(Brightness.light);
   static ThemeData get darkTheme  => _buildTheme(Brightness.dark);
 
-  // ── Entry point ──────────────────────────────────────────────
   static ThemeData _buildTheme(Brightness brightness) {
     final isDark = brightness == Brightness.dark;
 
@@ -40,7 +39,6 @@ class AppTheme {
     );
   }
 
-  // ── AppBar ───────────────────────────────────────────────────
   static AppBarTheme _appBarTheme(ColorScheme cs) => AppBarTheme(
         elevation: 0,
         scrolledUnderElevation: 0,
@@ -56,7 +54,6 @@ class AppTheme {
         iconTheme: IconThemeData(color: cs.onSurface),
       );
 
-  // ── Card ─────────────────────────────────────────────────────
   static CardThemeData _cardTheme(ColorScheme cs) => CardThemeData(
         elevation: 2,
         color: cs.surface,
@@ -68,7 +65,6 @@ class AppTheme {
         clipBehavior: Clip.antiAlias,
       );
 
-  // ── ElevatedButton ───────────────────────────────────────────
   static ElevatedButtonThemeData _elevatedButtonTheme(ColorScheme cs) =>
       ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -88,7 +84,6 @@ class AppTheme {
         ),
       );
 
-  // ── OutlinedButton ───────────────────────────────────────────
   static OutlinedButtonThemeData _outlinedButtonTheme(ColorScheme cs) =>
       OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
@@ -102,7 +97,6 @@ class AppTheme {
         ),
       );
 
-  // ── InputDecoration ──────────────────────────────────────────
   static InputDecorationTheme _inputDecorationTheme(ColorScheme cs) {
     final radius = BorderRadius.circular(12);
     return InputDecorationTheme(
@@ -137,7 +131,6 @@ class AppTheme {
     );
   }
 
-  // ── ListTile ─────────────────────────────────────────────────
   static ListTileThemeData _listTileTheme() => const ListTileThemeData(
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         minVerticalPadding: 8,
@@ -146,7 +139,6 @@ class AppTheme {
         ),
       );
 
-  // ── BottomNavigationBar ───────────────────────────────────────
   static BottomNavigationBarThemeData _bottomNavTheme(ColorScheme cs) =>
       BottomNavigationBarThemeData(
         backgroundColor: cs.surface,
@@ -161,7 +153,6 @@ class AppTheme {
         unselectedLabelStyle: const TextStyle(fontSize: 12),
       );
 
-  // ── NavigationBar (Material 3) ───────────────────────────────
   static NavigationBarThemeData _navigationBarTheme(ColorScheme cs) =>
       NavigationBarThemeData(
         backgroundColor: cs.surface,

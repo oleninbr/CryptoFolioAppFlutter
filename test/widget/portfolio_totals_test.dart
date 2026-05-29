@@ -35,11 +35,11 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          // Bypass auth + Firestore by supplying the already-merged list.
+
           portfolioWithPricesProvider.overrideWithValue(
             AsyncData([itemWithPrice]),
           ),
-          // Supply known totals so the card shows predictable numbers.
+
           portfolioTotalsProvider.overrideWithValue(testTotals),
         ],
         child: const MaterialApp(
@@ -50,11 +50,10 @@ void main() {
         ),
       ),
     );
-    await tester.pump(); // process providers + layout
+    await tester.pump();
 
-    // Current value row ($130,000.00)
     expect(find.textContaining('130,000'), findsOneWidget);
-    // P&L percent badge (+30.00%)
+
     expect(find.textContaining('+30'), findsOneWidget);
   });
 }

@@ -1,5 +1,4 @@
-/// A single price sample from the market-chart endpoint.
-/// CoinGecko returns each entry as [timestampMs, price].
+
 class PricePoint {
   const PricePoint({required this.timestamp, required this.price});
 
@@ -18,7 +17,6 @@ class PricePoint {
   List<dynamic> toList() => [timestamp.millisecondsSinceEpoch, price];
 }
 
-/// Price history from GET /coins/{id}/market_chart.
 class MarketChartModel {
   const MarketChartModel({required this.prices});
 

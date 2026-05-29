@@ -23,8 +23,6 @@ class ProfileScreen extends ConsumerStatefulWidget {
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   bool _uploading = false;
 
-  // ── Photo upload ──────────────────────────────────────────────────
-
   Future<void> _pickAndUpload(ImageSource source) async {
     final l10n = AppLocalizations.of(context)!;
     final cs = Theme.of(context).colorScheme;
@@ -38,12 +36,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         maxHeight: 512,
       );
     } catch (_) {
-      // Camera / gallery permission denied.
+
       if (mounted) _showPermissionDialog(l10n);
       return;
     }
 
-    if (picked == null) return; // user cancelled
+    if (picked == null) return;
 
     final uid = ref.read(authStateProvider).valueOrNull?.uid;
     if (uid == null) return;
@@ -119,8 +117,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
-  // ── Build ─────────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -131,8 +127,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         ? ref.watch(profileProvider(uid)).valueOrNull
         : null;
 
-    // Photo URL: prefer Firestore (latest after upload), fall back to
-    // Firebase Auth photo URL (set on account creation / Google sign-in).
     final photoUrl =
         (profileData?['photoUrl'] as String?) ?? authUser?.photoUrl;
 
@@ -142,7 +136,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         ref.watch(localeNotifierProvider).valueOrNull?.languageCode ?? 'en';
     final currency = ref.watch(selectedCurrencyProvider);
 
-    // Initial letter for the avatar placeholder.
     final displayName = authUser?.displayName;
     final emailStr = authUser?.email ?? '';
     final initial = (displayName?.isNotEmpty == true
@@ -160,13 +153,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          // ── Profile card ────────────────────────────────────────
+
           Card(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Column(
                 children: [
-                  // ── Avatar + edit overlay ─────────────────────────
+
                   Stack(
                     alignment: Alignment.center,
                     children: [
@@ -201,7 +194,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   ),
                   const SizedBox(height: 12),
 
-                  // ── Name / email ─────────────────────────────────
                   if (displayName != null && displayName.isNotEmpty)
                     Text(
                       displayName,
@@ -221,7 +213,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     ),
                   const SizedBox(height: 8),
 
-                  // ── Change photo button ──────────────────────────
                   TextButton.icon(
                     onPressed: _uploading
                         ? null
@@ -234,7 +225,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             ),
           ),
 
-          // ── Upload progress bar ─────────────────────────────────
           if (_uploading) ...[
             const SizedBox(height: 8),
             Padding(
@@ -253,7 +243,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
           const SizedBox(height: 12),
 
-          // ── Theme ───────────────────────────────────────────────
           Card(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
@@ -301,7 +290,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
           const SizedBox(height: 12),
 
-          // ── Language ────────────────────────────────────────────
           Card(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
@@ -337,7 +325,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
           const SizedBox(height: 12),
 
-          // ── Currency ────────────────────────────────────────────
           Card(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
@@ -379,7 +366,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
           const SizedBox(height: 24),
 
-          // ── Logout button ───────────────────────────────────────
           FilledButton.icon(
             onPressed: () =>
                 ref.read(authNotifierProvider.notifier).signOut(),
@@ -400,8 +386,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       ),
     );
   }
-
-  // ── Helpers ────────────────────────────────────────────────────────
 
   Widget _buildAvatar(
       String? photoUrl, String initial, ColorScheme cs) {

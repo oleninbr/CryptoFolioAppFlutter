@@ -8,8 +8,6 @@ import '../../../coin_detail/domain/models/coin_detail_model.dart';
 import '../../domain/models/portfolio_item_model.dart';
 import '../providers/portfolio_provider.dart';
 
-/// Modal bottom sheet for adding a coin to the portfolio.
-/// Opened from [CoinDetailScreen]; receives the fully loaded [CoinDetailModel].
 class AddToPortfolioSheet extends ConsumerStatefulWidget {
   const AddToPortfolioSheet({super.key, required this.detail});
 
@@ -33,9 +31,9 @@ class _AddToPortfolioSheetState extends ConsumerState<AddToPortfolioSheet> {
   @override
   void initState() {
     super.initState();
-    // Pre-fill buy price with the current market price.
+
     _buyPriceCtrl.text = widget.detail.currentPrice.toStringAsFixed(2);
-    // Rebuild on every keystroke to update the real-time total.
+
     _quantityCtrl.addListener(_onFieldChanged);
     _buyPriceCtrl.addListener(_onFieldChanged);
   }
@@ -48,8 +46,6 @@ class _AddToPortfolioSheetState extends ConsumerState<AddToPortfolioSheet> {
     _buyPriceCtrl.dispose();
     super.dispose();
   }
-
-  // ── Submit ────────────────────────────────────────────────────────
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
@@ -92,8 +88,6 @@ class _AddToPortfolioSheetState extends ConsumerState<AddToPortfolioSheet> {
     }
   }
 
-  // ── Build ─────────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -102,7 +96,7 @@ class _AddToPortfolioSheetState extends ConsumerState<AddToPortfolioSheet> {
     final d = widget.detail;
 
     return Padding(
-      // Shift the sheet above the keyboard.
+
       padding: EdgeInsets.only(
         bottom: MediaQuery.viewInsetsOf(context).bottom,
       ),
@@ -115,7 +109,7 @@ class _AddToPortfolioSheetState extends ConsumerState<AddToPortfolioSheet> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // ── Drag handle ──────────────────────────────────
+
                 Center(
                   child: Container(
                     width: 40,
@@ -128,7 +122,6 @@ class _AddToPortfolioSheetState extends ConsumerState<AddToPortfolioSheet> {
                   ),
                 ),
 
-                // ── Coin header (read-only) ───────────────────────
                 Row(
                   children: [
                     CachedNetworkImage(
@@ -179,7 +172,6 @@ class _AddToPortfolioSheetState extends ConsumerState<AddToPortfolioSheet> {
                 ),
                 const SizedBox(height: 20),
 
-                // ── Quantity ─────────────────────────────────────
                 TextFormField(
                   controller: _quantityCtrl,
                   keyboardType: const TextInputType.numberWithOptions(
@@ -203,7 +195,6 @@ class _AddToPortfolioSheetState extends ConsumerState<AddToPortfolioSheet> {
                 ),
                 const SizedBox(height: 14),
 
-                // ── Buy price ────────────────────────────────────
                 TextFormField(
                   controller: _buyPriceCtrl,
                   keyboardType: const TextInputType.numberWithOptions(
@@ -227,7 +218,6 @@ class _AddToPortfolioSheetState extends ConsumerState<AddToPortfolioSheet> {
                 ),
                 const SizedBox(height: 16),
 
-                // ── Real-time total ───────────────────────────────
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 14,
@@ -258,7 +248,6 @@ class _AddToPortfolioSheetState extends ConsumerState<AddToPortfolioSheet> {
                 ),
                 const SizedBox(height: 20),
 
-                // ── Add button ────────────────────────────────────
                 FilledButton(
                   onPressed: _loading ? null : _submit,
                   style: FilledButton.styleFrom(

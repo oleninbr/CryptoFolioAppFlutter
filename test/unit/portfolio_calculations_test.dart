@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:crypto_folio/features/portfolio/domain/models/portfolio_item_model.dart';
 
-/// Helper – builds a minimal [PortfolioItemModel] without Firestore involvement.
 PortfolioItemModel _makeItem({
   required double quantity,
   required double buyPrice,

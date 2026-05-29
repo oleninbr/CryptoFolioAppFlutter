@@ -27,8 +27,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     super.dispose();
   }
 
-  // ── Actions ──────────────────────────────────────────────────────
-
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     await ref
@@ -36,15 +34,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         .signIn(_emailCtrl.text, _passwordCtrl.text);
   }
 
-  // ── Build ─────────────────────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
 
-    // Show error snackbar on auth failure.
     ref.listen<AsyncValue>(authNotifierProvider, (_, next) {
       if (next.hasError) {
         final err = next.error;
@@ -75,7 +70,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // ── Logo ──────────────────────────────────────────
+
                   Center(
                     child: Container(
                       width: 80,
@@ -97,7 +92,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // ── Title ─────────────────────────────────────────
                   Text(
                     l10n.appTitle,
                     style: theme.textTheme.headlineMedium?.copyWith(
@@ -115,7 +109,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 36),
 
-                  // ── Email ─────────────────────────────────────────
                   AuthTextField(
                     label: l10n.email,
                     hint: 'you@example.com',
@@ -134,7 +127,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 16),
 
-                  // ── Password ──────────────────────────────────────
                   AuthTextField(
                     label: l10n.password,
                     hint: '••••••',
@@ -162,7 +154,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 8),
 
-                  // ── Forgot password ───────────────────────────────
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
@@ -172,7 +163,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 8),
 
-                  // ── Login button ──────────────────────────────────
                   FilledButton(
                     onPressed: isLoading ? null : _submit,
                     style: FilledButton.styleFrom(
@@ -195,7 +185,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // ── Register link ─────────────────────────────────
                   Center(
                     child: TextButton(
                       onPressed: () => context.go('/register'),

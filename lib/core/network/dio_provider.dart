@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/api_constants.dart';
 
-/// Provides a pre-configured [Dio] instance shared across all data sources.
 final dioProvider = Provider<Dio>((ref) {
   final options = BaseOptions(
     baseUrl: ApiConstants.baseUrl,
@@ -17,7 +16,6 @@ final dioProvider = Provider<Dio>((ref) {
 
   final dio = Dio(options);
 
-  // Log request/response lines only in debug builds.
   assert(() {
     dio.interceptors.add(
       LogInterceptor(

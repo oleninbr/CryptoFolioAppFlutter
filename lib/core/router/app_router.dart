@@ -13,22 +13,14 @@ import '../../features/portfolio/presentation/screens/portfolio_screen.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
 import 'scaffold_with_nav_bar.dart';
 
-// ── Router-refresh helper ─────────────────────────────────────────────────────
-
-/// A thin [ChangeNotifier] that fires whenever the auth state changes.
-/// Injected into [GoRouter.refreshListenable] so the router re-evaluates
-/// its [redirect] on every sign-in / sign-out event.
 class _AuthRouterNotifier extends ChangeNotifier {
   void notify() => notifyListeners();
 }
-
-// ── Provider ──────────────────────────────────────────────────────────────────
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final notifier = _AuthRouterNotifier();
   ref.onDispose(notifier.dispose);
 
-  // Re-run redirect whenever auth state changes.
   ref.listen<AsyncValue<AppUserModel?>>(
     authStateProvider,
     (_, __) => notifier.notify(),
@@ -42,7 +34,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       final authAsync = ref.read(authStateProvider);
 
-      // Still loading — do not redirect yet.
       if (authAsync.isLoading) return null;
 
       final isLoggedIn = authAsync.valueOrNull != null;
@@ -57,7 +48,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
 
     routes: [
-      // ── Auth screens (full-screen, no nav bar) ───────────────────
+
       GoRoute(
         path: '/login',
         builder: (_, __) => const LoginScreen(),
@@ -71,7 +62,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (_, __) => const ForgotPasswordScreen(),
       ),
 
-      // ── Coin detail: pushed on top of the stack ──────────────────
       GoRoute(
         path: '/home/coin/:coinId',
         builder: (context, state) => CoinDetailScreen(
@@ -80,7 +70,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
 
-      // ── Main shell: three tabs with preserved state ──────────────
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             ScaffoldWithNavBar(navigationShell: navigationShell),

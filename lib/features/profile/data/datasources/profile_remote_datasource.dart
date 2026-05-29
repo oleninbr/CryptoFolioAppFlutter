@@ -10,19 +10,12 @@ final profileRemoteDataSourceProvider = Provider<ProfileRemoteDataSource>(
   (_) => const ProfileRemoteDataSource(),
 );
 
-/// Handles all remote user-profile operations:
-/// - Photo upload to Firebase Storage
-/// - Profile data read / write in Firestore
 class ProfileRemoteDataSource {
   const ProfileRemoteDataSource();
 
   FirebaseFirestore get _db => FirebaseFirestore.instance;
   FirebaseStorage get _storage => FirebaseStorage.instance;
 
-  // ── Storage ───────────────────────────────────────────────────────
-
-  /// Uploads [photo] to `users/{uid}/profile_photo.jpg` and returns the
-  /// public download URL.
   Future<String> uploadProfilePhoto(String uid, File photo) async {
     try {
       final ref = _storage.ref('users/$uid/profile_photo.jpg');
@@ -39,9 +32,6 @@ class ProfileRemoteDataSource {
     }
   }
 
-  // ── Firestore ─────────────────────────────────────────────────────
-
-  /// Merges [photoUrl] and / or [displayName] into `users/{uid}`.
   Future<void> updateUserProfile(
     String uid, {
     String? photoUrl,
@@ -55,8 +45,6 @@ class ProfileRemoteDataSource {
     await _db.collection('users').doc(uid).set(data, SetOptions(merge: true));
   }
 
-  /// Returns a real-time stream of the user's profile document.
-  /// Emits `null` if the document does not exist yet.
   Stream<Map<String, dynamic>?> watchUserProfile(String uid) {
     return _db
         .collection('users')
